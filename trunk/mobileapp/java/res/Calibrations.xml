@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calibrations>
+	<Calibration>
+		<Device>
+			<Brand></Brand>
+			<Model></Model>
+		</Device>
+		<User>SONY CSL</User>
+		<CalibPair input="0" output="0">
+		<!-- ... -->
+	</Calibration>
+	<!-- ... -->
+</Calibrations>
