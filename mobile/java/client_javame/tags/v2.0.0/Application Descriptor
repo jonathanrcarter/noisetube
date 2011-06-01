@@ -1,0 +1,20 @@
+Nokia-MIDlet-No-Exit: true
+MIDlet-Version: 2.0.0
+MIDlet-Info-URL: http://www.noisetube.net
+Nokia-MIDlet-Background-Event: pause
+Nokia-MIDlet-On-Screen-Keypad: no
+MIDlet-Icon: /icons/NoiseTubeIcon55x55.png
+MicroEdition-Configuration: CLDC-1.1
+MIDlet-Jar-URL: NTMobile.jar
+MIDlet-Name: NoiseTube Mobile Jave ME Client
+MIDlet-1: NoiseTube Mobile,/icons/NoiseTubeMNTIcon55x55.png,net.noisetube.core.javame.MainMIDlet
+NoiseTube-WatchSupported: false
+CSLMIDlet-DataFolderName: NoiseTube
+NoiseTube-VersionPostfix: final
+NoiseTube-GPSSupported: true
+MIDlet-Description: NoiseTube Mobile Client (Java ME)
+MIDlet-Permissions-Opt: javax.microedition.io.Connector.http,javax.microedition.io.Connector.https,javax.microedition.io.Connector.socket,javax.microedition.io.Connector.sms,javax.microedition.io.Connector.mms,javax.wireless.messaging.sms.send,javax.wireless.messaging.sms.receive,javax.wireless.messaging.mms.send,javax.wireless.messaging.mms.receive,javax.microedition.io.Connector.bluetooth.client,javax.microedition.io.Connector.bluetooth.server,javax.microedition.io.PushRegistry
+App-Build-Date: 2011-01-03
+MIDlet-Permissions: javax.microedition.media.control.RecordControl,javax.microedition.io.Connector.file.read,javax.microedition.io.Connector.file.write,javax.microedition.location.Location
+MIDlet-Vendor: Sony CSL & Vrije Universiteit Brussel
+MicroEdition-Profile: MIDP-2.0
