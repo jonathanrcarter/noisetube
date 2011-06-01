@@ -1,0 +1,5 @@
+#Thu Oct 01 18:52:46 CEST 2009
+eclipse.preferences.version=1
+pkg_use_project=true
+preverify_config_value=CLDC
+preverify_type=preverify_emulator

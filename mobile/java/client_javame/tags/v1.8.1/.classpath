@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="noisetube/ui/ScreensaverBlocker.java|noisetube/util/ScreensaverBlocker.java" kind="src" path="src"/>
+	<classpathentry kind="src" path="res"/>
+	<classpathentry kind="con" path="org.elipse.mtj.JavaMEContainer/Java(TM) Platform Micro Edition SDK 3.0/DefaultCldcPhone2"/>
+	<classpathentry exported="true" kind="lib" path="lib/LWUIT.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/NoiseTube Mobile/doc/lwuit_v1.2.1_javadoc.zip!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="lib/regexp-me.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
