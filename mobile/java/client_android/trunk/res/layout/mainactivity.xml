@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+ ________________________________________________________________________________
+  NoiseTube Mobile client (Java implementation; Android version)
+  
+  Copyright (C) 2008-2010 SONY Computer Science Laboratory Paris
+  Portions contributed by Vrije Universiteit Brussel (BrusSense team), 2008-2011
+  Android port by Vrije Universiteit Brussel (BrusSense team), 2010-2011
+ ________________________________________________________________________________
+  This library is free software; you can redistribute it and/or modify it under
+  the terms of the GNU Lesser General Public License, version 2.1, as published
+  by the Free Software Foundation.
+  
+  This library is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+  details.
+  
+  You should have received a copy of the GNU Lesser General Public License along
+  with this library; if not, write to:
+    Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor,
+    Boston, MA  02110-1301, USA.
+  
+  Full GNU LGPL v2.1 text: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
+  NoiseTube project source code repository: http://code.google.com/p/noisetube
+ ________________________________________________________________________________
+  More information:
+   - NoiseTube project website: http://www.noisetube.net
+   - Sony Computer Science Laboratory Paris: http://csl.sony.fr
+   - VUB BrusSense team: http://www.brussense.be
+ ________________________________________________________________________________
+-->
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@android:id/tabhost" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	<LinearLayout android:orientation="vertical"
+		android:layout_width="fill_parent" android:layout_height="fill_parent">
+		<TabWidget android:id="@android:id/tabs"
+			android:layout_width="fill_parent" android:layout_height="wrap_content" />
+		<FrameLayout android:id="@android:id/tabcontent"
+			android:layout_width="fill_parent" android:layout_height="0px"
+			android:layout_weight="1"
+			android:padding="4dp" />
+		<LinearLayout android:orientation="horizontal"
+			android:layout_width="fill_parent" android:layout_height="47dp" android:layout_weight="0" android:paddingTop="2dp"
+			android:layout_gravity="bottom">
+			<Button android:id="@+id/pauseButton" style="@style/ButtonTheme"
+				android:text="Pause" android:layout_height="fill_parent"
+				android:layout_width="wrap_content" />
+			<Button android:id="@+id/startstopButton" style="@style/ButtonTheme"
+				android:text="Stop" android:layout_height="fill_parent"
+				android:layout_width="wrap_content" />
+		</LinearLayout>
+	</LinearLayout>
+</TabHost>

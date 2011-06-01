@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+ ________________________________________________________________________________
+  NoiseTube Mobile client (Java implementation; Android version)
+  
+  Copyright (C) 2008-2010 SONY Computer Science Laboratory Paris
+  Portions contributed by Vrije Universiteit Brussel (BrusSense team), 2008-2011
+  Android port by Vrije Universiteit Brussel (BrusSense team), 2010-2011
+ ________________________________________________________________________________
+  This library is free software; you can redistribute it and/or modify it under
+  the terms of the GNU Lesser General Public License, version 2.1, as published
+  by the Free Software Foundation.
+  
+  This library is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+  details.
+  
+  You should have received a copy of the GNU Lesser General Public License along
+  with this library; if not, write to:
+    Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor,
+    Boston, MA  02110-1301, USA.
+  
+  Full GNU LGPL v2.1 text: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
+  NoiseTube project source code repository: http://code.google.com/p/noisetube
+ ________________________________________________________________________________
+  More information:
+   - NoiseTube project website: http://www.noisetube.net
+   - Sony Computer Science Laboratory Paris: http://csl.sony.fr
+   - VUB BrusSense team: http://www.brussense.be
+ ________________________________________________________________________________
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+	<com.google.android.maps.MapView
+		android:id="@+id/mapview" android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:clickable="true"
+		android:apiKey="02LP9wXvYxiwz7sbgoiikLX_WvTm5ZCKUkmY5JQ" /><!-- linked to brussense-release key -->
+
+	<LinearLayout android:orientation="horizontal"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content">
+	
+		<TextView android:id="@+id/lblGPSState"
+		 	android:layout_gravity="left" android:padding="8px"
+		 	android:layout_width="wrap_content" android:layout_height="wrap_content"
+ 			android:text="GPS: Disabled" android:textColor="#CC000000" 
+ 			android:shadowColor="#77878787" android:shadowRadius="6"/>
+		
+		<LinearLayout android:orientation="horizontal"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"
+        	android:padding="8px" android:gravity="right">
+    
+    		<ToggleButton android:id="@+id/tglFollowLocation"
+       			android:layout_width="wrap_content" android:layout_height="wrap_content"
+       			android:textOn="Follow" android:textOff="Follow" android:lines="0"
+       			android:layout_centerHorizontal="true" android:layout_centerVertical="true"
+				android:drawableTop="@android:drawable/ic_menu_mylocation"
+				android:disabledAlpha="1.5"
+				android:scaleType="center"/>
+		</LinearLayout>
+	</LinearLayout> 	
+</RelativeLayout>
+

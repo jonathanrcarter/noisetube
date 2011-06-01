@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+ ________________________________________________________________________________
+  NoiseTube Mobile client (Java implementation; Android version)
+  
+  Copyright (C) 2008-2010 SONY Computer Science Laboratory Paris
+  Portions contributed by Vrije Universiteit Brussel (BrusSense team), 2008-2011
+  Android port by Vrije Universiteit Brussel (BrusSense team), 2010-2011
+ ________________________________________________________________________________
+  This library is free software; you can redistribute it and/or modify it under
+  the terms of the GNU Lesser General Public License, version 2.1, as published
+  by the Free Software Foundation.
+  
+  This library is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+  details.
+  
+  You should have received a copy of the GNU Lesser General Public License along
+  with this library; if not, write to:
+    Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor,
+    Boston, MA  02110-1301, USA.
+  
+  Full GNU LGPL v2.1 text: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
+  NoiseTube project source code repository: http://code.google.com/p/noisetube
+ ________________________________________________________________________________
+  More information:
+   - NoiseTube project website: http://www.noisetube.net
+   - Sony Computer Science Laboratory Paris: http://csl.sony.fr
+   - VUB BrusSense team: http://www.brussense.be
+ ________________________________________________________________________________
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="net.noisetube" android:versionCode="5" android:versionName="1.2.1">
+
+	<!-- for the internet connection -->
+	<uses-permission android:name="android.permission.INTERNET" />
+	<!-- for accessing gps information -->
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<!-- for writing external storage -->
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<!-- for recording audio -->
+	<uses-permission android:name="android.permission.RECORD_AUDIO" />
+	<!-- to detect incoming calls -->
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+	<!-- android.name refers to the Activity-class that contains this activity -->
+	<application android:icon="@drawable/noisetube"
+		android:theme="@style/DefaultTheme" android:allowClearUserData="true" android:label="NoiseTube Mobile" android:debuggable="false">
+
+		<uses-library android:name="com.google.android.maps" />
+
+		<activity android:label="@string/app_name" android:name=".ui.android.MainActivity" android:theme="@android:style/Theme.NoTitleBar" android:screenOrientation="unspecified" android:configChanges="keyboardHidden|orientation|screenLayout">
+			<!-- Display NoiseTube in the application launcher by adding the appropriate intent -->
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+
+		<activity android:name=".ui.android.LoginActivity" android:screenOrientation="unspecified"/>
+
+		<activity android:name=".ui.android.tabs.TabGraphActivity"/>
+
+		<activity android:name=".ui.android.tabs.TabMapActivity"/>
+
+		<activity android:name=".ui.android.tabs.TabTagActivity"/>
+		
+		<activity android:name=".ui.android.tabs.TabLoadingActivity"/>
+
+		<!-- <activity android:name=".ui.android.tabs.TabSpectrumActivity"/> -->
+		
+		<activity android:name=".ui.android.PreferencesActivity" android:screenOrientation="unspecified" android:configChanges="keyboardHidden|orientation"/>
+		
+		<activity android:name=".ui.android.AboutActivity" android:screenOrientation="unspecified"/>
+
+	</application>
+
+	<uses-sdk android:minSdkVersion="7" />
+
+</manifest> 

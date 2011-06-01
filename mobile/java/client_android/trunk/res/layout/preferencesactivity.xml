@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+ ________________________________________________________________________________
+  NoiseTube Mobile client (Java implementation; Android version)
+  
+  Copyright (C) 2008-2010 SONY Computer Science Laboratory Paris
+  Portions contributed by Vrije Universiteit Brussel (BrusSense team), 2008-2011
+  Android port by Vrije Universiteit Brussel (BrusSense team), 2010-2011
+ ________________________________________________________________________________
+  This library is free software; you can redistribute it and/or modify it under
+  the terms of the GNU Lesser General Public License, version 2.1, as published
+  by the Free Software Foundation.
+  
+  This library is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+  details.
+  
+  You should have received a copy of the GNU Lesser General Public License along
+  with this library; if not, write to:
+    Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor,
+    Boston, MA  02110-1301, USA.
+  
+  Full GNU LGPL v2.1 text: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
+  NoiseTube project source code repository: http://code.google.com/p/noisetube
+ ________________________________________________________________________________
+  More information:
+   - NoiseTube project website: http://www.noisetube.net
+   - Sony Computer Science Laboratory Paris: http://csl.sony.fr
+   - VUB BrusSense team: http://www.brussense.be
+ ________________________________________________________________________________
+-->
+<LinearLayout android:id="@+id/fullLayout"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:weightSum="1.0">
+	
+	<ScrollView android:layout_width="fill_parent" android:layout_height="0px" android:layout_weight="1.0" android:fillViewport="true">
+		<LinearLayout>
+			<TextView android:text="Preferences" android:layout_height="wrap_content" android:layout_width="fill_parent" />
+		
+			<CheckBox android:id="@+id/usegps" android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:text="Enable GPS" />
+			<CheckBox android:id="@+id/pauseWhenInBackground"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:text="Pause measuring when in background" />
+		
+			<TextView android:id="@+id/lblStorage" android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:text="How do you want to store your measurement data:" />
+			<RadioGroup android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:orientation="vertical">
+				<RadioButton android:id="@+id/usehttp"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:text="Submit to NoiseTube.net and save to local file" />
+				<RadioButton android:id="@+id/usefile"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:text="Save to local file" />
+				<RadioButton android:id="@+id/usenone"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:text="Do not store measurements" />
+			</RadioGroup>
+			
+			<CheckBox android:id="@+id/memorycard"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:text="Prefer memory card for local storage" />
+		</LinearLayout>
+	</ScrollView>
+	
+	<Button android:id="@+id/btnPreferencesOK" style="@style/ButtonTheme"
+		android:layout_alignParentBottom="true" android:layout_gravity="bottom"
+    	android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:text="OK" />
+</LinearLayout>

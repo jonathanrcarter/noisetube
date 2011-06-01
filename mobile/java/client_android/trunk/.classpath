@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="net/noisetube/core/Engine.java|net/noisetube/config/Device.java|net/noisetube/io/android/AndroidFileReader.java|net/noisetube/ui/android/ItemizedNoiselevelOverlay.java|net/noisetube/audio/android/spectrumanalyzer/|net/noisetube/ui/android/tab/TabSpectrumActivity.java|net/noisetube/NTMobile.java|net/noisetube/ui/android/tabs/TabSpectrumActivity.java|net/noisetube/core/android/MainActivity.java|net/noisetube/ui/android/TabContainerActivity.java" kind="src" path="src"/>
+	<classpathentry excluding="net/noisetube/audio/calibration/CalibrationsParser.java|net/noisetube/io/JavaMEResourceReader.java|net/noisetube/io/saving/SaveException.java" kind="src" path="shared-src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
