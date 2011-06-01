@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<calibrations lastChanged="2010-12-14">
+	<!-- credibilityIndex values:
+			- A: same as B but specific to a single physical instance of a device model
+			- B: internal (=SonyCSL/VUB) professional in ideal conditions (verified)
+			- C: internal professional (verified)
+			- D: internal professional (unverified)
+			- E: external professional (unverified)
+			- F: end user (unverified)
+		 Not to be defined here, but used in program:
+			- G: brand match, model mismatch
+			- H: brand and model mismatch (default used)
+	-->
+	<calibration deviceBrandID="2" deviceBrand="Nokia" deviceModel="5230" credibilityIndex="B" overallDefault="true" brandDefault="true">
+		<creator>BrusSense-VUB</creator>
+		<comment>
+			Calibration done by Ellie D'Hondt in summer-autumn 2010 in an anechoic chamber at the VUB. Note values of phone #0 (TODO: use "average" over all 11 phones).
+		</comment>
+		<correction input="24.64" output="30.0"/>
+		<correction input="25.83" output="35.0"/>
+		<correction input="27.24" output="40.1"/>
+		<correction input="29.05" output="44.9"/>
+		<correction input="35.0" output="50.1"/>
+		<correction input="43.34" output="55.0"/>
+		<correction input="51.84" output="60.05"/>
+		<correction input="59.95" output="65.05"/>
+		<correction input="68.51" output="70.05"/>
+		<correction input="72.92" output="75.1"/>
+		<correction input="77.02" output="79.95"/>
+		<correction input="81.2" output="84.95"/>
+		<correction input="85.18" output="89.95"/>
+		<correction input="87.25" output="95.0"/>
+		<correction input="88.84" output="100.0"/>
+		<correction input="90.18" output="103.8"/>
+	</calibration>
+	<calibration deviceBrandID="2" deviceBrand="Nokia" deviceModel="N95_8GB" credibilityIndex="C">
+		<creator>Sony CSL Paris / BrusSense-VUB</creator>
+		<comment>
+			Calibration done in late 2008 and/or early 2009 in the audio studio at Sony CSL Paris. Changed in 2010 by BrusSense-VUB: scaled with respect to new reference value (93.9794...) in loudness calculation code.
+		</comment>
+		<correction input="29.979400086720375" output="37.0"/>
+		<correction input="30.979400086720375" output="39.0"/>
+		<correction input="35.979400086720375" output="44.0"/>
+		<correction input="38.979400086720375" output="47.0"/>
+		<correction input="42.979400086720375" output="49.0"/>
+		<correction input="49.979400086720375" output="54.0"/>
+		<correction input="55.979400086720375" output="59.0"/>
+		<correction input="61.979400086720375" output="64.0"/>
+		<correction input="66.97940008672037" output="69.0"/>
+		<correction input="68.97940008672037" output="74.0"/>
+		<correction input="73.97940008672037" output="79.0"/>
+		<correction input="75.97940008672037" output="84.0"/>
+		<correction input="78.97940008672037" output="89.0"/>
+		<correction input="80.97940008672037" output="94.0"/>
+		<correction input="82.97940008672037" output="99.0"/>
+		<correction input="83.97940008672037" output="102.0"/>
+	</calibration>
+	<calibration deviceBrandID="2" deviceBrand="Nokia" deviceModel="E65-1" credibilityIndex="E">
+		<creator>Andrea Iacoponi (ARPAT - Agenzia Regionale per la Protezione Ambientale della Toscana, Italy)</creator>
+		<comment>
+			Calibration values received on Oct 23, 2009. Changed in 2010 by BrusSense-VUB: scaled with respect to new reference value (93.9794...) in loudness calculation code.
+		</comment>
+		<correction input="58.77940008672037" output="60.0"/>
+		<correction input="59.37940008672038" output="65.0"/>
+		<correction input="61.77940008672037" output="70.0"/>
+		<correction input="63.479400086720375" output="75.0"/>
+		<correction input="65.87940008672038" output="80.0"/>
+		<correction input="68.17940008672038" output="85.0"/>
+		<correction input="70.67940008672038" output="90.0"/>
+		<correction input="74.97940008672037" output="95.0"/>
+		<correction input="80.17940008672038" output="100.0"/>
+	</calibration>
+	<calibration deviceBrandID="2" deviceBrand="Nokia" deviceModel="N96-1" credibilityIndex="E">
+		<creator>Andrea Iacoponi (ARPAT - Agenzia Regionale per la Protezione Ambientale della Toscana, Italy)</creator>
+		<comment>
+			Calibration values received on Oct 23, 2009. Changed in 2010 by BrusSense-VUB: scaled with respect to new reference value (93.9794...) in loudness calculation code.
+		</comment>
+		<correction input="57.579400086720376" output="55.0"/>
+		<correction input="53.979400086720376" output="60.0"/>
+		<correction input="52.479400086720375" output="65.0"/>
+		<correction input="61.87940008672038" output="70.0"/>
+		<correction input="65.37940008672038" output="75.0"/>
+		<correction input="68.77940008672037" output="80.0"/>
+		<correction input="71.57940008672037" output="85.0"/>
+		<correction input="76.37940008672038" output="90.0"/>
+		<correction input="81.37940008672038" output="95.0"/>
+		<correction input="85.57940008672037" output="100.0"/>
+	</calibration>
+	<calibration deviceBrandID="2" deviceBrand="Nokia" deviceModel="5800" credibilityIndex="F">
+		<creator>Amrit Kaur (Awaaz Fundation, India)</creator>
+		<comment>
+			Calibration values received on April 30, 2009. Changed in 2010 by BrusSense-VUB: scaled with respect to new reference value (93.9794...) in loudness calculation code.
+		</comment>	
+		<correction input="43.979400086720375" output="64.0"/>
+		<correction input="60.979400086720375" output="75.0"/>
+		<correction input="66.97940008672037" output="83.0"/>
+		<correction input="67.97940008672037" output="86.0"/>
+		<correction input="70.97940008672037" output="89.0"/>
+		<correction input="83.97940008672037" output="100.0"/>
+	</calibration>
+	<calibration deviceBrandID="2" deviceBrand="Nokia" deviceModel="N85-1" credibilityIndex="F">
+		<creator>Amrit Kaur (Awaaz Fundation, India)</creator>
+		<comment>
+			Calibration values received on April 30, 2009. Changed in 2010 by BrusSense-VUB: scaled with respect to new reference value (93.9794...) in loudness calculation code.
+		</comment>
+		<correction input="48.979400086720375" output="60.0"/>
+		<correction input="49.979400086720375" output="65.0"/>
+		<correction input="47.979400086720375" output="70.0"/>
+		<correction input="49.979400086720375" output="75.0"/>
+		<correction input="58.979400086720375" output="80.0"/>
+		<correction input="62.979400086720375" output="86.0"/>
+		<correction input="63.979400086720375" output="89.0"/>
+		<correction input="66.97940008672037" output="94.0"/>
+		<correction input="69.97940008672037" output="100.0"/>
+	</calibration>
+	<calibration deviceBrandID="2" deviceBrand="Nokia" deviceModel="N79-1" credibilityIndex="F">
+		<creator>Amrit Kaur (Awaaz Fundation, India)</creator>
+		<comment>
+			Calibration values received on April 30, 2009. Changed in 2010 by BrusSense-VUB: scaled with respect to new reference value (93.9794...) in loudness calculation code.
+		</comment>	
+		<correction input="48.979400086720375" output="63.0"/>
+		<correction input="54.979400086720375" output="70.0"/>
+		<correction input="55.979400086720375" output="75.0"/>
+		<correction input="58.979400086720375" output="80.0"/>
+		<correction input="62.979400086720375" output="85.0"/>
+		<correction input="68.97940008672037" output="89.0"/>
+		<correction input="73.97940008672037" output="95.0"/>
+		<correction input="81.97940008672037" output="100.0"/>
+	</calibration>
+		
+	<!-- Sony Ericsson -->
+	<calibration deviceBrandID="0" deviceBrand="Sony Ericsson" deviceModel="W995" credibilityIndex="D" brandDefault="true">
+		<creator>Sony CSL Paris / BrusSense-VUB</creator>
+		<comment>
+			Calibration done between august and October 2009 in the audio studio at Sony CSL Paris. Changed in 2010 by BrusSense-VUB: scaled with respect to new reference value (93.9794...) in loudness calculation code.
+		</comment>
+		<correction input="57.479400086720375" output="47.0"/>
+		<correction input="62.37940008672038" output="53.0"/>
+		<correction input="65.37940008672038" output="55.0"/>
+		<correction input="69.57940008672037" output="60.0"/>
+		<correction input="74.57940008672037" output="65.0"/>
+		<correction input="76.27940008672037" output="70.7"/>
+		<correction input="77.77940008672037" output="76.0"/>
+		<correction input="78.67940008672038" output="80.0"/>
+		<correction input="79.17940008672038" output="85.0"/>
+	</calibration>
+	<!-- HTC -->
+	<!-- ... -->
+</calibrations>

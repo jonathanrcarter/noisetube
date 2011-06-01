@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project name="NoiseTube Mobile for Java ME" default="GenerateBuildInfo">
+	<target name="GenerateBuildInfo">
+		<property name="nt-platform" value="javame"/>
+		<property name="project" location="${basedir}"/>
+		<property name="gen" location="${project}/gen"/>
+		<property name="output-dir" location="${gen}/net/noisetube/core/${nt-platform}"/>
+		<echo>Make dir "${output-dir}" if needed...</echo>
+		<mkdir dir="${output-dir}"/>
+		<tstamp>
+			<format property="TIMESTAMP" pattern="yyyy-MM-dd HH:mm:ss z" locale="ENGLISH, UK"/>
+		</tstamp>
+		<echo>Generating Buildnfo class (Build time stamp: ${TIMESTAMP})...</echo>
+		<echo file="${output-dir}/BuildInfo.java">//Generated file, do not edit
+package net.noisetube.core.${nt-platform};
+			
+public class BuildInfo
+{
+	public static final String timeStamp = "${TIMESTAMP}";
+}</echo>
+		<echo>BuildInfo class generated.</echo>
+		<echo>Refreshing generated sources folder in Eclipse...</echo>
+		<eclipse.refreshLocal resource="${gen}" depth="infinite"/>
+		<echo>Done.</echo>
+	</target>
+</project>
