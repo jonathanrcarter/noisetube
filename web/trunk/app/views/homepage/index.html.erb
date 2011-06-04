@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+        <meta name="google-site-verification" content="EsepA0P7DwqW4Sl4nbRBicq3ieXXCEAYL-ID2x6ajtk" />
+        <META name="y_key" content="236bc15ffcbfd131" />
+        <meta name="msvalidate.01" content="128A4883E7558129DB2B4D6F00DA5610" />
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="verify-v1" content="/1ye9S3fYnPSK8ACXckjCRvhk322Z8WST4ty0ksoZKc=" />
+	<%= javascript_include_tag :defaults %>
+	<%= javascript_include_tag "carousel.packed" %>
+	<%= stylesheet_link_tag 'screen' %>
+	<%= stylesheet_link_tag 'classic' %>
+
+	<title>NoiseTube</title>
+	<link rel="shortcut icon" href="/images/NoiseTube.ico"/>
+	<style type="text/css">
+	<!--
+		.Style1 {
+			font-size: 100%;
+			font-weight: bold;
+		}
+
+		.Style2 {
+			font-size: 16px;
+			font-weight: bold;
+			padding:0px;
+			margin:0px;
+		}
+	-->
+	</style>
+  
+  <!-- GOOGLE ANALYTICS -->
+  	<!-- Nicolas -->
+		<script type="text/javascript">
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+		<script type="text/javascript">
+			pageTracker = _gat._getTracker("UA-492714-4");
+			pageTracker._trackPageview();
+		</script>
+
+  	<!-- Matthias/BrusSense -->
+		<script type="text/javascript">
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-5195024-3']);
+		  _gaq.push(['_setDomainName', '.noisetube.net']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+		</script>
+  <!-- END GOOGLE ANALYTICS --> 
+  
+  </head>
+  
+  <body>
+    <div id="container">
+      
+      <div class="row">
+        <table><tr><td><a href="http://www.noisetube.net/"><img src="images/noisetubelogo.png" /></a></td>
+        <td align="right" style="width:500px"></td></tr></table>
+        
+        <div id="navs">
+          <!-- <div style="color:red"><h2><b>Maintenance Mode: We are currently moving the server.Sorry for the inconvenient.</b></h2></div>
+         -->
+          <div class="clearfix" style="float:left;">
+            <ul id="nav" >
+              <li><a href="/">About</a><!-- &nbsp;<a href="/?locale=fr"><img src="/images/icons/french_flag.gif"/></a> <a href="/?locale=en"><img src="/images/icons/english_flag.gif"/></a> --></li>
+              <li><a href="/cities">Cities</a></li>
+              <li><a href="/users">People</a></li>
+              <li><a href="/tags/index">Tags</a></li>
+              <li><a href="/download">Download</a></li>
+              <li><a href="/api_overview">API</a></li>
+              <% if logged_in? %>
+                <li><%= link_to 'Your Elog', :controller => 'users', :action=>"show", :id => current_user  %></li>
+                <li><%= link_to 'Your Profile', :controller => 'users', :action=>"edit", :id => current_user  %></li>
+                <li><%= link_to 'Logout', logout_path %></li>
+              <% else %>
+                <li><a href="/signup">Join!</a></li>
+                <li><%= link_to 'Login', login_path %></li>
+              <% end %>
+            </ul>
+          </div>
+          
+          <div class="clearfix" style="float:right;">
+            <ul id="nav">
+              <li><a href="/help">Help</a></li>
+              <li><a href="/publications">Publications</a></li>
+              <li><a href="/team">Team</a></li>
+          </ul></div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <hr/><br/>
+        <div id="home">            
+          <div class="intro">
+            <h2><%= t 'intro.title' %></h2>
+            <%= t 'intro.paragraph' %>
+          </div>
+        </div>
+      </div>      
+      
+      <div class="col nleft">
+        <h3><%= t 'motivation.title' %></h3>
+        
+        <strong><%= t 'motivation.citizen.title' %></strong>
+        <%= t 'motivation.citizen.arguments' %>
+                        
+        <strong><%= t 'motivation.goverment.title' %></strong>
+        <%= t 'motivation.goverment.arguments' %>
+                                  
+        <strong><%= t 'motivation.researcher.title' %></strong>
+        <%= t 'motivation.researcher.arguments' %>
+                
+        <strong><%= t 'motivation.developper.title' %></strong>
+        <%= t 'motivation.developper.arguments' %>
+
+        <h3><%= t 'participation.title' %></h3>
+        <%= t 'participation.paragraph' %>
+
+        <h3><%= t 'contact.title' %></h3>
+        <%= t 'contact.paragraph' %>
+
+      </div>
+      
+      <div class="col nright" style="padding-left:10px">
+
+	<p>
+		<center><img src="images/participatory_sensing.png"/></center>
+	</p>
+        
+        <object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/Gza0tyjozGs&hl=en&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/Gza0tyjozGs&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
+        <br/><br/>
+
+
+        <div id="horizontal_carousel" >
+          <div class="previous_button"></div>
+          <div class="container">
+            <ul>
+              <li><center><img src="images/slide-screenshot.png"/><br/><i><%= t 'images.legend1' %></i></center></li>
+              <li><table border=0 cellpadding=1 cellspacing=1>
+                  <tr><td><img alt="Window" src="images/slide-phoneui.png"/></td><td valign="top"><p><%= t 'images.legend2' %></p>
+                  </td></tr>
+                </table>
+              </li>
+              <li><center><img src="images/cities-screenshot.jpg"/><br/><i><%= t 'images.legend3' %></i></center></li>
+              <li><center><img src="images/slide-real-time.jpg" width="330" height="270" /><br/><i><%= t 'images.legend4' %></i></center></li>
+              <li><center><img src="images/slide-subway.gif"/><br/><i><%= t 'images.legend5' %></i></center></li>
+            </ul>
+          </div>
+          <div class="next_button"></div>
+        </div>
+
+        <script type="text/javascript">
+            // <![CDATA[
+            function runTest() {
+                hCarousel = new UI.Carousel("horizontal_carousel", {	scrollInc: 1});
+                hCarousel.nbVisible=1;
+            }
+            Event.observe(window, "load", runTest);
+            // ]]>
+        </script>
+      </div>
+
+      <div class="row" id="footer">
+        <hr/>
+        <center>          
+		<p>2008-2011 - <a href="http://www.csl.sony.fr">Sony Computer Science Laboratory Paris</a> &amp; <a href="http://www.brussense.be">VUB BrusSense group</a><br/>
+		Source code available under <a href="http://www.gnu.org/licenses/lgpl-2.1.html">GNU LGPL v2.1</a> license and hosted on <a href="http://code.google.com/p/noisetube">Google Code</a>.</p>
+        </center>
+        <center><div style="align:center;position:relative;text-align:left;width:500px">
+            <div style="position:relative;float:left;width:100px"><a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img src="http://i.creativecommons.org/l/by/3.0/88x31.png" alt="Creative Commons License" style="border: medium none ;" height="31" width="88"/></a>
+            </div>
+            <div>Except where otherwise noted, content on this site is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/" class="subfoot">Creative Commons Attribution 3.0 License</a>
+            </div>
+        </div></center>
+        <br/><br/>
+      </div>
+      
+    </div>
+  </body>
+</html>

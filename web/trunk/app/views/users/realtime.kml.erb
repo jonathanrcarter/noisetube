@@ -1,0 +1,19 @@
+<%
+xml = Builder::XmlMarkup.new
+xml.instruct!
+xml.kml(:xmlns => "http://earth.google.com/kml/2.2") {
+  xml.NetworkLink {
+    xml.open(1)
+    xml.name("Real-time Exposure (every 2s)")
+    xml.visibility(1)
+    xml.Link {
+      xml.open(1)
+      xml.visibility(1)
+      xml.href("#{@baseurl}/realtime.kml?update=1&for=#{@interval}")
+      xml.refreshMode("onInterval")
+      xml.refreshInterval(2)
+      xml.viewRefreshTime(1)
+    }
+  }
+}
+%><%= xml.target! %>

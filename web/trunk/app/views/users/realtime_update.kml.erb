@@ -1,0 +1,97 @@
+<%  
+xml = Builder::XmlMarkup.new
+xml.instruct!
+xml.kml(:xmlns => "http://earth.google.com/kml/2.2") {
+
+  xml.Document {
+    xml.Folder {
+      xml.name("users' exposure ")
+
+      @users.each_with_index { |user,i|
+       
+        lat=user[:lat]
+        lng=user[:lng]
+        measure=user[:m]
+        user=user[:user]
+        tagging=user[:tagging]
+xml.Folder {
+         xml.name("#{user.login}")
+
+        xml.Placemark{
+          # #xml.Snippet("Sensor #{i}: #{measure.loudness} dB(A)")
+          xml.name("#{user.login} #{measure.loudness} dB(A)")
+          xml.description("<img src=\"#{@baseurl}/#{user.id}.jpg\"/> #{user.login}<br/>Last measure: #{measure.loudness} dB(A) at #{measure.made_at} <br/><p>Geocoordinates: <br/>lat: #{lat}<br/>lng: #{lng}</p><p><img src=\"#{@baseurl}/#{user.id}/tracks/last.png\"/></p>")
+
+
+          # xml.TimeStamp{
+          #  xml.when(point.created.utc.strftime("%Y-%m-%dT%H:%M:%SZ"))
+          # }
+          color=get_color(measure)
+          xml.IconStyle{
+            xml.color(color)
+            xml.Icon{
+              xml.href("http://www.noisetube.net/images/sensor.png")
+            }
+          }
+          xml.Style{
+            xml.PolyStyle {
+              # set the color according the loudness
+
+              xml.color(color)
+              xml.outline(0)
+            }
+          }
+
+          xml.MultiGeometry{
+            xml.Point{
+              xml.coordinates("#{lng},#{lat}") 
+            }
+
+            xml.Polygon{
+              xml.extrude(true)
+              xml.altitudeMode("relativeToGround")
+              xml.outerBoundaryIs{
+                xml.LinearRing{
+                  coord=generate_kmlcircle(measure.loudness*3,lng,lat,10,20)            
+                  xml.coordinates(coord)  
+                }
+              }
+            }
+          }
+        }
+
+        unless tagging.nil?
+            xml.Placemark{
+            xml.name("#{tagging.tag.name} (#{user.login})")
+            xml.description("created at #{tagging.created_at}")
+            xml.Point{
+              xml.coordinates("#{lng+0.0005},#{lat+0.0005}")
+            }
+          }
+        end
+        }
+      }     
+    }
+    
+    #Semantic layer 
+    #xml.Folder{
+      #xml.name("recent tags")
+      #@tagged_measures.each{|measure|
+        #measure.tags.each{|tag|
+          ## for each tag
+          #xml.Placemark{
+            #xml.name("#{tag.name} (#{measure.user.login})")
+            #xml.description("measurement made at #{measure.made_at}")
+
+            #xml.Point{
+              #xml.coordinates("#{measure.lng},#{measure.lat}")
+            #}
+          #}
+        #}
+      #}
+    #}
+  }
+}
+
+%><%= xml.target! %>
+

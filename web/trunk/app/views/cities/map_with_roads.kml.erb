@@ -1,0 +1,51 @@
+<%
+xml = Builder::XmlMarkup.new(:indent=>2)
+xml.instruct!
+xml.kml(:xmlns => "http://earth.google.com/kml/2.2") {
+  xml.Document {
+
+
+    # contributors layer
+    xml.Folder{
+      xml.name("Loudness of the roads")
+      @roads.each_with_index { |r, i|
+        xml.Placemark{
+          xml.name("#{r[:r].name} #{r[:loudness]} dB(A)")
+          xml.description(" #{r[:r].name} #{r[:r].type} #{r[:loudness]}")
+           xml.Style{  
+                xml.PolyStyle{
+                  color=get_color_loudness(r[:loudness])
+                  #  color="af"+point.color[1..6]
+                  # #color=point.color[1..6]
+                  xml.color(color)
+                  xml.colorMode("normal")
+                  xml.fill(true)
+                  xml.outline(false)
+                }
+              }
+          # #set the color according the loudness
+          xml<< "#{r[:r].the_geom.as_kml}"
+        }
+      }
+    }
+
+
+    #xml.Folder{
+      #xml.name("Corrected")
+      #@measures.each_with_index { |point, i|
+        #xml.Placemark{
+          #xml.name("corrected")      
+          #xml.description("#{point.location}")
+          #xml.Point{
+            #xml.coordinates("#{point.corrected.lng},#{point.corrected.lat},#{point.loudness}")
+          #}
+
+        #}
+      #}
+    #}
+  }
+
+}
+
+
+%><%= xml.target! %>

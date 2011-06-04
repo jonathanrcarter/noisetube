@@ -1,0 +1,46 @@
+<%  unless @user.nil?
+      @user.password = nil
+      @user.password_confirmation = nil
+    end
+%>
+
+<%= error_messages_for :user %>
+<% if flash[:error] %>
+  <div style="color: red;" class="error"><%= flash[:error] %></div>
+<% end %>
+
+<% form_for :user, @user, :url => { :action => "create" } do |f| %>
+  <table cellpadding="5" cellspacing="10">
+    <th align="center">All the fields are required</th>
+    <tr>
+    <td align="right"><%= label_tag '<b>Username:</b>', nil,:style => "font-size:16px;" %></td>
+    <td><%= f.text_field :login, :style => "font-size:18px;", :size=>15 %></td>
+    </tr>
+    <tr>
+      <td align="right"><%= label_tag '<b>Password:</b>', nil,:style => "font-size:16px;" %></td>
+      <td><%= f.password_field :password, :style => "font-size:18px;", :size=>15 %></td>
+    </tr>
+    <tr>
+      <td align="right"><%= label_tag '<b>Repeat password:</b>', nil,:style => "font-size:16px;" %></td>
+      <td><%= f.password_field :password_confirmation, :style => "font-size:18px;", :size=>15 %></td>
+    </tr>
+    <tr>
+      <td align="right"><%= label_tag '<b>E-mail address:</b> <br/><font style="font-size:10px"> (so we can mail you your password if you lost it)</font>', nil,:style => "font-size:16px;" %></td>
+      <td><%= f.text_field :email, :style => "font-size:18px;",:size=>15 %></td>
+    </tr>
+    <tr>
+      <td align="right"><%= label_tag '<b>Home town:</b>', nil,:style => "font-size:16px;" %></td>
+      <td><%= f.text_field :location, :style => "font-size:18px;",:size=>15 %></td>
+    </tr>
+    <tr>
+    <td align="right"><%= label_tag '<b>Mobile phone brand &amp; model:</b><br/>', nil,:style => "font-size:16px;" %></td>
+      <td><%= f.text_field :phonemodel, :style => "font-size:18px;",:size=>15 %></td>
+    </tr>
+  </table>
+
+<p>Are you human?<br/>
+<%= recaptcha_tags %>
+
+<p><%= submit_tag 'Sign up' %></p>
+<% end -%>
+</p>

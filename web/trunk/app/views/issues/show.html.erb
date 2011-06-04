@@ -1,0 +1,28 @@
+<p>
+  <b>Title:</b>
+  <%=h @issue.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @issue.description %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%=h @issue.status %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%=h @issue.city_id %>
+</p>
+
+<p>
+  <b>Creator:</b>
+  <%=h @issue.creator_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_issue_path(@issue) %> |
+<%= link_to 'Back', issues_path %>

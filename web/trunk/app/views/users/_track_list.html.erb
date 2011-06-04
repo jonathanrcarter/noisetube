@@ -1,0 +1,151 @@
+<div id="results">
+
+<%#*<div style="margin:5px">sorted by: date, average exposure, duration, geo coverage%>
+
+  <center style="font-size:12px"> <%= will_paginate @tracks  %>  </center>
+  <br/>
+  <ul style=" align:left;   overflow: auto;   list-style: none inside; ">
+    <%
+    #distance_of_time_in_words(t.start, t.end)
+    @tracks.each_with_index {|t,i|
+      if t.processed
+      %>
+        <li style="background-color: rgb(235, 235, 235);padding-left:0px; margin-left:0px;margin-bottom:20px">
+          <table  class="borderless" border="0" cellpadding="0" cellspacing="0">
+            <tbody>
+              <tr>
+                <td width="15"><img src="/images/roundedcornr_348668_tl.png" alt="Rounded Corner: Top-left" border="0" width="15" height="15"/></td>
+                <td></td>
+                <td width="15"><img src="/images/roundedcornr_348668_tr.png" alt="Rounded Corner: Top-right" border="0" width="15" height="15"/></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <div  class="header">
+                    <div style="float:left">
+                      <b>Start time:</b> <font style="font-size: 11px;" color="#777777"><%= t.starts_at %></font><br/>
+                      <b>End time:</b> <font style="font-size: 11px;" color="#777777"><%= t.ends_at %> (<%=distance_of_time_in_words(t.ends_at, Time.now) unless t.ends_at.nil? %> ago)</font>
+                    </div>
+                    <div style="float:right">
+                      <a href="/users/<%=  @user.id %>/tracks/<%= t.id  %>.json"><img src="/images/icons/Download_16x16.png" align="absmiddle" alt="Download data"/>&nbsp;Data</a>
+                      <%  if logged_in? && @user==current_user %>
+                        &nbsp;&nbsp;<a href="/users/<%=  @user.id %>/tracks/<%= t.id %>/destroy"><img src="/images/icons/delete_16x16.png" align="absmiddle" alt="Delete track"/>&nbsp;Delete</a>
+                      <% end%>
+                    </div>
+                    <br/><br/><br/>
+                  </div>
+
+                  <div style="float:left">
+                    <table>
+                      <tr>
+                        <td valign="top" align="left" width="130">
+                          <b>Contextual tags:</b>
+                          <!-- <img src="/images/icons/tag.png" align="absmiddle" alt="Tags">&nbsp;<br/>-->
+                        </td>
+                        <td width="270" valign="top">
+                          <div>Location:<%
+
+                          tags=t.tags(100,"location_type")
+                          unless (tags.empty?) %>
+                            <%  tag_cloud tags, %w(tag1 tag2 tag3 tag4) do |tag, css_class| %>
+                             <%= link_to "#{tag.name}", {:controller=>:tags, :action => :filter, :tags => "location:#{tag.name}"}, :class => css_class %>,
+                            <%end
+                          end %>   </div>
+
+                          <div>Street:<%
+                          
+                          tags=t.tags(100,"location_street")
+                          unless (tags.empty?) %>
+                            <%  tag_cloud tags, %w(tag1 tag2 tag3 tag4) do |tag, css_class| %>
+                             <%= link_to "#{tag.name}", {:controller=>:tags, :action => :filter, :tags => "location:#{tag.name}"}, :class => css_class %>,
+                            <%end
+                          end %>   </div>
+                          <div>District:<%
+
+                          tags=t.tags(100,"location_district")
+                          unless (tags.empty?) %>
+                            <%  tag_cloud tags, %w(tag1 tag2 tag3 tag4) do |tag, css_class| %>
+                             <%= link_to "#{tag.name}", {:controller=>:tags, :action => :filter, :tags => "location:#{tag.name}"}, :class => css_class %>,
+                            <%end
+                          end %>   </div>
+
+                          <div>During the day:  <%
+
+                          tags=t.tags(100,"time_day")
+                          unless (tags.empty?) %>
+                            <%  tag_cloud tags, %w(tag1 tag2 tag3 tag4) do |tag, css_class| %>
+                              <%= link_to "#{tag.name}", {:controller=>:tags, :action => :filter, :tags => "time:#{tag.name}"}, :class => css_class %>,
+                            <%end
+                          end%>
+                          </div>
+                          <div>Social:
+                          <%
+
+                          tags=t.tags(100,"tags")
+                          unless (tags.empty?) %>
+                            <%  tag_cloud tags, %w(tag1 tag2 tag3 tag4) do |tag, css_class| %>
+                              <%= link_to "#{tag.name}", {:controller=>:tags, :action=>:filter, :tags => "tags:#{tag.name}"}, :class => css_class %>,
+                          <%  end %>
+                          <% else %>
+                            no tag
+                          <%  end %>
+                            </div>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <table align="left" width="400"><tr>
+                        <td width="130px" valign="top"><b>Measurements: </b>
+                          <font style="font-size: 11px;" color="#777777"> <br/>
+                            Duration: <%= duration(t) %> <br/>
+                            #Measurements: <%= t.count %> <br/>
+                            Average: <%= t.avgloudness.to_i %> dB(A)<br/>
+                            Sudden variations: <%= t.highvariation %> <br/>
+                            Long exposure: <%= t.highexposure %> <br/>
+                            <% if t.geolocated %>
+                              Distance covered: <%= t.distance.to_i %> m<br/>
+                            <% end %>
+                          </font>
+                        </td>
+                        <td valign="top"><img src="/users/<%= @user.id%>/tracks/<%= t.id  %>.png?size=230x100"/></td>
+                      </tr></table>
+                  </div>
+                  <div style="float:left;width:120px" >
+                    <% if t.geolocated and not t.geom.nil? #nil check just to be sure
+                      center=t.geom.envelope.center
+                    %>
+                      <img src="http://maps.google.com/staticmap?key=ABQIAAAAEDqSJ7sjOq1o3M9HFMUctBTP6FiD4Pq0_NOM64wEPpZs4eDxtRS5-gQAVDwr5RxsOtxOMbZGzM-pjQ&sensor=true&center=<%=center.lat%>,<%=center.lng%>&zoom=13&size=120x120" width="120"/><br/>
+                      <a href="/users/<%= @user.id %>/tracks/<%= t.id %>.kml"><img src="/images/icons/KML_16x16.png" align="absmiddle" alt="KML"/>&nbsp;<font size="2px" style="color:#999999">Map</font></a><br/>
+                     <% if File.exists?("#{RAILS_ROOT}/public/tours/tour#{t.id}.kml") %>
+                      <a href="/tours/tour<%= t.id  %>.kml"><img src="/images/icons/KML_16x16.png" align="absmiddle" alt="KML"/>&nbsp;<font size="2px" style="color:#999999">Animated map</font></a>
+                    <% end
+                    end %>
+                  </div>
+
+                </td><td></td></tr>
+              <tr>
+                <td><img src="/images/roundedcornr_348668_bl.png" alt="" border="0" width="15" height="15"/></td>
+                <td></td>
+                <td><img src="/images/roundedcornr_348668_br.png" alt="" border="0" width="15" height="15"/></td>
+              </tr>
+            </tbody></table>
+        </li>
+
+      <%  else %>
+        <li >
+          <table cellpadding="5" cellspacing="0" style="background-color: rgb(240, 240, 240); width:540px;padding:5px">
+              <tr><td>
+                <b>Start time:</b><font style="font-size: 11px;" color="#777777"> <%= t.starts_at %> (<%=distance_of_time_in_words(t.starts_at, Time.now) unless t.starts_at.nil? %> ago) </font><br/>
+                <p><center><b>
+                    Track not yet processed. wait few minutes</b>
+                </center></p>
+              </td></tr>
+              </table>
+          <hr style="background-color:#FFFFFF"/>
+        </li>
+      <%  end %>
+
+
+    <% } %>
+  </ul>
+</div>

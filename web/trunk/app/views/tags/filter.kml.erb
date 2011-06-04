@@ -1,0 +1,104 @@
+<%
+   xml = Builder::XmlMarkup.new(:indent=>2)
+   xml.instruct!
+   xml.kml(:xmlns => "http://earth.google.com/kml/2.2") {
+       xml.Document {
+
+               # Legend
+
+           xml.Folder{
+               xml.name("Legends")
+               xml.open(0)
+               xml.visibility(1)
+               xml.Folder{
+                   xml.name("static legends")
+                   xml.ScreenOverlay{
+                       xml.name("title")
+                       xml.Icon{
+                           xml.href("#{@baseurl}/images/legend.png")
+                       }
+                       xml.overlayXY(:x=>"0", :y=>"0.1", :xunits=>"fraction", :yunits=>"fraction")
+                       xml.screenXY(:x=>"0", :y=>"0.1", :xunits=>"fraction", :yunits=>"fraction")
+                   }
+                   xml.ScreenOverlay{
+                       xml.name("legend")
+                       xml.Icon{
+                           xml.href("#{@baseurl}/images/legend_info.png")
+                       }
+                       xml.overlayXY(:x=>"0", :y=>"1", :xunits=>"fraction", :yunits=>"fraction")
+                       xml.screenXY(:x=>"0", :y=>"1", :xunits=>"fraction", :yunits=>"fraction")
+                   }
+               }
+               xml.NetworkLink{
+                   xml.name("dynamic legends")
+                   xml.visibility(1)
+                   xml.open(0)
+                   xml.refreshVisibility(1)
+                   xml.flyToView(0)
+                   xml.Link{
+                       xml.href("#{@baseurl}/tags/legend.kml?type_tags=tags&exclude_tags=#{@tags.join(",")}")
+                       xml.refreshInterval(2)
+                       xml.viewRefreshMode("onStop")
+                       xml.viewRefreshTime(1)
+                   }
+               }
+           }
+
+           # MEASURE LAYER
+           xml.Folder{
+               xml.name("Levels of exposure")
+               xml.open(0)
+               xml.visibility(1)
+               @measures.each_with_index { |point, i|
+                   generate_kml_measurement(xml, point)
+               }
+           }
+
+
+           # SEMANTIC LAYER
+           xml.Folder{
+               xml.name("Social Tagging")
+               xml.open(1)
+               xml.visibility(1)
+
+               @tags_measure.each_pair { |name, tag |
+                   xml.Folder{
+                       xml.name("#{name} (#{tag[:count]})")
+
+                       tag[:taggings].each { |tagging|
+                       # via normal phone application
+
+                           if tagging.taggable_type=="Measure"
+                               xml.Placemark{
+                                   xml.name("#{name} (#{tagging.tagger.login})")
+                                   xml.description("<h4>Creator:</h4><br/> <img src=\"#{@baseurl}/users/#{tagging.tagger.id}.jpg\" width=\"50\" height=\"50\" />
+                  #<br/><a href=\"#{@baseurl}/users/#{tagging.tagger.id}\">#{tagging.tagger.login}</a>
+                  #<p><h4>Date:</h4>#{tagging.taggable.created_at}</p>
+                  #<p><h4>Annotation related measures - Leq(1sec) in dB(A)</h4>
+                  #<img src=\"#{@baseurl}/taggings/#{tagging.id}/measures.png\" width=\"250\" height=\"140\" />
+                  #</p>")
+                                   xml.Point{
+                                       xml.coordinates("#{tagging.taggable.geom.lng},#{tagging.taggable.geom.lat}")
+                                   }
+                               }
+                           else
+                               # via SMS
+                               xml.Placemark{
+                                   xml.name("#{name} (via SMS)")
+                                   xml.description("<h4>Sender:</h4><br/> #{tagging.tagger.phone}")
+                                   xml.Point{
+                                       xml.coordinates("#{tagging.taggable.geom.lng},#{tagging.taggable.geom.lat}")
+                                   }
+                               }
+                           end
+
+                       }
+
+                   }
+               }
+           }
+       }
+   }
+
+
+%><%= xml.target! %>

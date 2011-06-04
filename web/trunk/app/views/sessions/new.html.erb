@@ -1,0 +1,32 @@
+<% if flash[:notice] %>
+    <div class="notice" style="color: green;"><%= flash[:notice] %></div>
+<% end %>
+<% if flash[:error] %>
+    <p style="color: red;"><%= flash[:error] %></p>
+<% end %>
+
+<% form_tag session_path do -%>
+  <p><%= label_tag 'login:' %><br />
+  <%= text_field_tag 'login', @login %></p>
+
+  <p><%= label_tag 'password:' %><br/>
+  <%= password_field_tag 'password', nil %></p>
+
+  <p><%= label_tag 'remember_me', 'Remember me' %>
+  <%= check_box_tag 'remember_me', '1', @remember_me %></p>
+  
+  <p><%= submit_tag 'Log in' %></p>
+<% end -%>
+
+
+<a href="#" onClick="$('forgot').toggle();">I Forgot my password!</a>
+<% form_for :user, :url => 'forgot_password' do |form| %>
+  <div id="forgot" style="display:none">
+    
+    <label for="user_email" >E-mail Address:</label><br/>
+    <%= form.text_field :email, :size => 20, :class => 'text' %>  
+    <%= submit_tag 'Send' %>
+  </div>
+  <br/>
+  <a href="/signup">Create new account...</a>
+<% end %>

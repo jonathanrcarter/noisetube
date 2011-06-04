@@ -1,0 +1,204 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<div class="row">
+  <hr/>
+  <div align="center">
+    <h1>API documentation</h1>
+  </div>
+  <h2> Data collecting API </h2>
+  <p>We describe here the process to feed the noisetube server of pollution data.</p>
+  <ul>
+    <li>1/ Creating a new session of measurement, <em>&quot;a track&quot;</em>:<br />
+      http://www.noisetube.net/api/newsession?key={myapikey} </li>
+  </ul>
+  <ul>
+    <li>2/ Adding exposure data of a citizen to his/her  current trace:
+      <p align="left"><em>example: </em>http://www.noisetube.net/api/update?key=myapikey&amp;l=geo:12.23,2.12&amp;tag=klaxon&amp;time=2008-10-02T11:02:02 Z +02:00&amp;db=56</p>
+      <div align="left">where:
+        <table width="825" border="0" cellpadding="4" cellspacing="4">
+          <tr>
+            <td width="93" bgcolor="#D9ECE4"><strong>Parameters</strong></td>
+            <td width="299" bgcolor="#D9ECE4"><strong>Description</strong></td>
+            <td width="278" bgcolor="#D9ECE4"><strong>Format </strong></td>
+            <td width="60" bgcolor="#D9ECE4"><strong>Default</strong></td>
+            <td width="61" bgcolor="#D9ECE4"><strong>Required </strong></td>
+          </tr>
+          <tr>
+            <td>key</td>
+            <td>the API key belonging to a  user</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>x</td>
+          </tr>
+          <tr>
+            <td>db</td>
+            <td>measured  loudness  in dB(A)</td>
+            <td>an integer in [30 to 110]</td>
+            <td>&nbsp;</td>
+            <td>x</td>
+          </tr>
+          <tr>
+            <td>time</td>
+            <td> local time of the measure.</td>
+            <td>W3C datetime format: <br />
+              YYYY-MM-DDThh:mm:ss Z ±hh:mm</td>
+            <td>&nbsp;</td>
+            <td>x</td>
+          </tr>
+          <tr>
+            <td valign="top">l</td>
+            <td>Location </td>
+            <td>geo:lat,lng e.g. l=geo:-12.23,2.12</td>
+            <td>&nbsp;</td>
+            <td>x</td>
+          </tr>
+          <tr>
+            <td>tag</td>
+            <td>tag associated to the measure </td>
+            <td>free text</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </div>
+      <br />
+    </li>
+  </ul>
+  <ul>
+    <li>3/ Ends the trace (to process the data on the server VERY IMPORTANT):<br />
+      http://www.noisetube.net/api/endsesssion?key={myapikey}</li>
+  </ul>
+  <p align="center"><em>That's it! You have created a trace that  will be published and sharable through the website after its processing.</em></p>
+  <hr/>
+  <h2>Access to the data commons API<span class="Style2"><br />
+  </span></h2>
+  <p>We describe here the web functions to track or get the raw collected data</p>
+  <h3>Function: API/Search
+  </h3>
+  <p><strong>Description:  </strong>search the last measures having such criteria </p>
+  <table width="832" border="0" cellpadding="4" cellspacing="4">
+    <tr>
+      <td width="84" bgcolor="#D9ECE4"><strong>Parameters</strong></td>
+      <td width="190" bgcolor="#D9ECE4"><strong>Description</strong></td>
+      <td width="305" bgcolor="#D9ECE4"><strong>Format </strong></td>
+      <td width="128" bgcolor="#D9ECE4"><strong>Default</strong></td>
+      <td width="61" bgcolor="#D9ECE4"><strong>Required </strong></td>
+    </tr>
+    <tr>
+      <td>key</td>
+      <td>the API key belonging to a  user</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>x</td>
+    </tr>
+    <tr>
+      <td>user</td>
+      <td> user associated with the measure</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>tag</td>
+      <td>tag associated with  the measure</td>
+      <td> integer (max=100)</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top">city</td>
+      <td>ID of the city</td>
+      <td> integer </td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top">geo</td>
+      <td> a bounding box </td>
+      <td><p>left,bottom,right,top
+          (e.g. geo=11.54,48.142,11.5439,48.1454) </p>
+        <ul>
+          <li> left is the longitude of the left  side of the bounding box. </li>
+          <li> <em>bottom</em> is the latitude of the bottomside of the bounding box. </li>
+          <li> <em>right</em> is the longitude of the right  side of the bounding box. </li>
+          <li> <em>top</em> is the latitude of the top  side of the bounding box. </li>
+        </ul></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top">dbmax</td>
+      <td> maximum value of  decibel</td>
+      <td>integer</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top">dbmin</td>
+      <td> minimum value of  decibel</td>
+      <td>integer</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td >since</td>
+      <td>measures since this date</td>
+      <td>timestamp in milliseconds</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td >until</td>
+      <td>measures until this date</td>
+      <td>timestamp in milliseconds</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td >max</td>
+      <td>the maximum number of measures returned</td>
+      <td>integer , max=100</td>
+      <td>20</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td >format(todo)</td>
+      <td>the output format</td>
+      <td>json,rss</td>
+      <td>json</td>
+      <td>&nbsp;</td>
+    </tr>
+  </table>
+  <h4>Examples:
+  </h4>
+  <ul>
+    <li> The last 100th measures in a city<br />
+      http://www.noisetube.net/api/search.json?key={apikey}&amp;city={cityID}&amp;max=100 </li>
+    <li>All the measures tagged with &quot;neighbour&quot; in the city ID<br />
+      http://www.noisetube.net/api/search.json?key={apikey}&amp;tag=neighbour&amp;city={cityID} </li>
+    <li>All the measures &gt;80 dB(a) in a given geographical area<br />
+      http://www.noisetube.net/api/search.json?key={apikey}&amp;geo=11.54,48.142,11.5439,48.1454&amp;dbmin=80 // </li>
+    <li>All the measures &gt;80 dB(a) in a given geographical area since a given date <br />
+      http://www.noisetube.net/api/search.json?key={apikey}&amp;geo=11.54,48.142,11.5439,48.1454&amp;dbmin=80&amp;since=121212332 //</li>
+  </ul>
+  <h4>JSON Return:<br/>
+  </h4>
+  <p>dataset=[{&quot;lat&quot;:48.8536,&quot;lng&quot;:2.38021,&quot;tags&quot;:[],&quot;date&quot;:1240213058000,&quot;l&quot;:68},<br />
+    {&quot;lat&quot;:48.8536,&quot;lng&quot;:2.38021,&quot;tags&quot;:[],&quot;date&quot;:1240213067000,&quot;l&quot;:66},<br />
+    {&quot;lat&quot;:48.8536,&quot;lng&quot;:2.38021,&quot;tags&quot;:[&quot;colleague&quot;],&quot;date&quot;:1240213268000,&quot;l&quot;:57}]</p>
+  <h3>Function: /users/{username}/tracks/{track.id}.json</h3>
+  <h4>Description:</h4>
+  Give the the measures associated to the trace with the id {trace.id} of the user {user.id}
+  <h4>Examples:</h4>
+  http://www.noisetube.net/users/nico/traces/123.json // give the associated measures of the traces with ID=123<br />
+  http://www.noisetube.net/users/nico/traces/last.json // give the last trace generated by the user
+
+  <p><strong>JSON Return:</strong><br/>
+  </p>
+  <p>dataset=[{&quot;lat&quot;:48.8536,&quot;lng&quot;:2.38021,&quot;tags&quot;:[],&quot;date&quot;:1240213058000,&quot;l&quot;:68},<br />
+    {&quot;lat&quot;:48.8536,&quot;lng&quot;:2.38021,&quot;tags&quot;:[],&quot;date&quot;:1240213067000,&quot;l&quot;:66},<br />
+    {&quot;lat&quot;:48.8536,&quot;lng&quot;:2.38021,&quot;tags&quot;:[&quot;colleague&quot;],&quot;date&quot;:1240213268000,&quot;l&quot;:57}]</p>
+</div>

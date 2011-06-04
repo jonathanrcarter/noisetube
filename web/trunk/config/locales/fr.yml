@@ -1,0 +1,30 @@
+fr:
+  intro: 
+    title: "Transformez votre téléphone portable en capteur environnemental et participez à l'observation de la pollution sonore"
+    paragraph: "<p>La pollution sonore est un problème majeur dans nos villes. NoiseTube est un projet scientifique fondé sur une nouvelle approche participative d'observation de la pollution sonore impliquant le public. Le but est d'étendre l'usage actuel du téléphone portable en le transformant en capteur de bruit donnant la possibilité à chaque citoyen de mesurer son niveau d'exposition sonore dans son environnement quotidien. Il pourra aussi contribuer à la création d'une cartographie collective de la pollution en partageant automatiquement ses measures géolocalisées avec la communauté.</p><p>En installant notre logiciel (gratuit) sur votre portable équipé d'un GPS, vous pourrez mesurer votre propre niveau sonore en décibels dB(A) (avec une précision inférieure à celle d'un sonomètre), et contribuer à la cartographie du bruit dans votre ville en annotant et envoyer automatiquement vos measures par internet(GPRS).</p>"
+  motivation:
+    title: "Motivation pour participer"
+    citizen: 
+      title: "Citoyens ou associations"
+      arguments: "<ul><li>Mesurer votre exposition quotidienne au bruit en decibels grâce à votre téléphone</li><li>Annoter les mesures avec le nom des sources sonores pour informer la communauté</li><li>Visualiser sur une carte vos mesures et contribuer à la création collective d'une carte de pollution</li><li>Comparer votre profil d'exposition aux autres participants</li><li>Confidentialité: Partager ou pas vos données avec la communauté et les scientifiques</li></ul>"
+    goverment: 
+      title: "Institutions publiques"
+      arguments: "<ul><li>Comprendre localement et globalement le problème de pollution sonore grâce à une cartographie et des statistiques sur l'exposition des citoyens</li></ul>"
+    researcher: 
+      title: "Chercheurs"
+      arguments: "<ul><li>Accéder aux données (anonymisées) pour vos recherches</li></ul>"
+    developper: 
+      title: "Développeurs"
+      arguments: "<ul><li>Utiliser notre API pour faire des mashups liant ces données de pollution à votre application</li></ul>"
+  contact:
+    title: "Contactez nous"
+    paragraph: "<p>NoiseTube est construit autour d'un esprit d'ouverture et de collaboration. Ce projet est en passe de devenir <b>Open Source</b>. N'hésitez pas à <a href='mailto:n.maisonneuve@gmail.com' style='text:underline'>nous contacter</a>. Nous serions très intéressés: </p><ul><li>par une collaboration ou des échanges d'expériences avec des chercheurs, acteurs publiques ou associations</li><li>par vos retours d'expérience et vos problèmes de pollution sonore</li><li>Si vous êtes développeur et voulez contribuer à ce projet Open Source, nous sommes intéressés par une version iPhone. Le code source Java de l'application est à votre disposition!</li></ul>"
+  participation:
+    title:  "Comment participer"
+    paragraph: "Si vous avez un téléphone équipé d'un GPS avec une plateforme Java <i>(e.g. Sony Ericsson XPeria, Nokia N95)</i> ou un iPhone (une version est plannifiée), Inscrivez-vous pour rester informé de la sortie de notre <b>logiciel gratuit</b> et participer aux premières experimentations (Avri09: La plateforme est ouverte pour des tests privés)"
+  images:
+    legend1: "l'exposition sonore d'un participant durant une balade dans Paris. La couleur des cercles représente le bruit en <a href='http://en.wikipedia.org/wiki/A-weighting'>dB(A)</a> mesuré par le logiciel installé dans le téléphone"
+    legend2: "L'application installée sur le téléphone a 3 fonctionnalités: <br/>- Mesurer votre exposition au bruit en dB(A) <br/>- Annoter la mesure<br/>- geolocaliser la measure</p><p>Les données sont envoyées sur le serveur NoiseTube par internet en temp réel"
+    legend3: "Une carte de la pollution visualisable avec le logiciel Google Earth"
+    legend4: "Une visualisation temp-réelle de l'exposition sonore des participants sur Google Earth"
+    legend5: "Une visualisation du bruit de deux lignes de métro, Paris"

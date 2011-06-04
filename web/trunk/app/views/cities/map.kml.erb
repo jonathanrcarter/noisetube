@@ -1,0 +1,201 @@
+<%
+xml = Builder::XmlMarkup.new(:indent=>2)
+xml.instruct!
+xml.kml(:xmlns => "http://earth.google.com/kml/2.2") {
+  xml.Document {
+     style_header(xml,"<![CDATA[<font size='5'>Measurement Leq(1s): <b>$[decibel] dB(A)</b><br/>$[address]
+</font>]]>")
+
+    # Legend
+    
+    xml.Folder{
+      xml.name("Legends")
+      xml.open(0)
+      xml.visibility(1)
+      xml.Folder{
+        xml.name("static legends")
+        xml.ScreenOverlay{
+          xml.name("title")
+          xml.Icon{
+            xml.href("#{@baseurl}images/legend.png")
+          }
+          xml.overlayXY(:x=>"0",:y=>"0.1", :xunits=>"fraction", :yunits=>"fraction")
+          xml.screenXY(:x=>"0",:y=>"0.1", :xunits=>"fraction", :yunits=>"fraction")
+        }
+        xml.ScreenOverlay{
+          xml.name("legend")
+          xml.Icon{
+            xml.href("#{@baseurl}images/legend_info.png")
+          }
+          xml.overlayXY(:x=>"0",:y=>"1", :xunits=>"fraction", :yunits=>"fraction")
+          xml.screenXY(:x=>"0",:y=>"1", :xunits=>"fraction", :yunits=>"fraction")
+        }
+      }
+      xml.NetworkLink{
+        xml.name("dynamic legends")
+        xml.visibility(1)
+        xml.open(0)
+        xml.refreshVisibility(1)
+        xml.flyToView(0)
+        xml.Link{
+          xml.href("#{@city_url}.kml?dl=1")
+          xml.refreshInterval(2)
+          xml.viewRefreshMode("onStop")
+          xml.viewRefreshTime(1)
+        }
+      }
+    }
+
+    # MEASURE LAYER
+    xml.Folder{
+      xml.name("Levels of exposure")
+      xml.open(0)
+      xml.visibility(1)
+      @ranges.each_with_index { |range, i|
+        xml.Folder{
+          xml.name("#{range[:label]}")
+          range[:measures].each_with_index { |point, i|
+              generate_kml_measurement(xml,point)
+           }
+        }
+      }
+    }
+
+
+    # SEMANTIC LAYER
+    xml.Folder{
+      xml.name("Social Tagging layer")
+      xml.open(1)
+      xml.visibility(1)
+      
+        @tags_measure.each_pair { |name,tag |
+          xml.Folder{
+            xml.name("#{name} (#{tag[:count]})")
+            
+            tag[:taggings].each { |tagging|
+              # via normal phone application
+              
+              if tagging.taggable_type=="Measure"
+              xml.Placemark{
+                xml.name("#{name} (#{tagging.tagger.login})")
+                xml.description("<h4>Creator:</h4><br/> <img src=\"#{@baseurl}/users/#{tagging.tagger.id}.jpg\" width=\"50\" height=\"50\" />
+                  <br/><a href=\"#{@baseurl}/users/#{tagging.tagger.id}\">#{tagging.tagger.login}</a>
+                  <p><h4>Date:</h4>#{tagging.taggable.created_at}</p>
+                  <p><h4>Annotation related measures - Leq(1sec) in dB(A)</h4>
+                  <img src=\"#{@baseurl}/taggings/#{tagging.id}/measures.png\" width=\"250\" height=\"140\" />
+                  </p>")
+                xml.Point{
+                  xml.coordinates("#{tagging.taggable.geom.lng},#{tagging.taggable.geom.lat}")
+                }
+                xml.TimeStamp{
+                    xml.when(tagging.taggable.created_at.to_s)
+                }
+              }
+              else
+                  # via SMS
+              xml.Placemark{
+                xml.name("#{name} (via SMS)")
+                xml.description("<h4>Sender:</h4><br/> #{tagging.tagger.phone}")
+                xml.Point{
+                  xml.coordinates("#{tagging.taggable.geom.lng},#{tagging.taggable.geom.lat}")
+                }
+              }
+              end
+
+            }
+          
+        }
+      }
+ }
+
+      # contributors layer
+      #xml.Folder{
+        #xml.name("Contributors Layer")
+        #xml.open(0)
+        #xml.visible(0)
+        #@users.each { |user|
+          #color=Color::HSL::from_fraction( rand(10).to_f/10.0,1.0,0.5).html;
+          #color=kml_color(color, "FF")
+          #xml.Folder{
+            #xml.name("#{user.login} (#{user.tracks.find(:last).starts_at})")
+            #user.tracks.find(:all,:conditions=>"processed = true and geolocated=true", :order=>"ends_at", :limit=>"10").each_with_index{| track, i|
+              #xml.Folder{
+                #xml.name("#{track.starts_at}")
+                #track.measures.find(:all,:conditions=>"geom is not null").each{|point|
+                  #xml.Placemark{
+                    #xml.name("#{point.loudness} dB(A)")
+                    ## #set the color according the loudness
+                    #xml.Style{
+                      #xml.PolyStyle{
+                        ##color=get_color(point)
+                        #xml.color(color)
+                        #xml.colorMode("normal")
+                        #xml.fill(true)
+                        #xml.outline(false)
+                      #}
+                    #}
+                    #coord=generate_kmlcircle(i*5,point.geom.lng,point.geom.lat,10,4)
+
+                    #xml.MultiGeometry{
+                      #xml.Polygon{
+                        #xml.altitudeMode("relativeToGround")
+                        #xml.extrude(false)
+                        #xml.outerBoundaryIs{
+                          #xml.LinearRing{
+                            #xml.coordinates(coord)
+                          #}
+                        #}
+                      #}
+                    #}
+                  #}
+                #}
+              #}
+            #}
+          #}
+        #}
+      #}
+
+
+      ## SUBJECTIVITY
+      ##      xml.Folder {
+      ##        xml.name("Impression")
+      ##        measure.each { |measure|
+      ##         if measure.rating.nil?
+      ##          xml.Placemark{
+      ##            xml.name("rating tag.name)
+      ##
+      ##
+      ##            #set the color according the loudness
+      ##            xml.Style{
+      ##              xml.PolyStyle{
+      ##                color="F000FF00" if (tag.feeling==2)
+      ##                color="F0808000" if (tag.feeling==1)
+      ##                color="F0a0a0a0" if (tag.feeling==0)
+      ##                color="F005A0DD" if (tag.feeling==-1)
+      ##                color="F00000FF" if (tag.feeling==-2)
+      ##                puts color
+      ##                xml.color(color)
+      ##                xml.colorMode("normal")
+      ##                xml.fill(true)
+      ##                xml.outline(false)
+      ##              }
+      ##            }
+      ##
+      ##            coord=create_circle(tag.lng,tag.lat,10)
+      ##
+      ##            xml.Polygon{
+      ##              xml.extrude(true)
+      ##              xml.tessellate(true)
+      ##              xml.altitude("clampToGround")
+      ##              xml.outerBoundaryIs{
+      ##                xml.LinearRing{
+      ##                  xml.coordinates(coord)
+      ##                }
+      ##              }
+      ##            }
+      ##          }
+      ##        }
+      ##      }
+    }
+  }
+%><%= xml.target! %>

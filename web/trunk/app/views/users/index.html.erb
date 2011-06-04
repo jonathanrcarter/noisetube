@@ -1,0 +1,65 @@
+
+
+<%= image_tag("icons/spinner.gif",
+              :align => "absmiddle",
+              :border => 0,
+              :id => "spinner",
+              :style =>"display: none;" ) %>
+
+<div id="table">
+  <h1>People</h1>
+
+  <% if @users.size == 0 %>
+      <h3>No users found</h3>
+  <% else %>
+      <h3><%= User.count %> registered users</h3>
+
+      <b>Last   <%= @users.size %> active users</b>
+      <!-- <b> users registered</b> -->
+      <br/><br/>
+      <table>
+        <thead>
+          <tr>
+            <td width="150"><b>Profile</b></td>
+            <td width="250"><b>Last exposure stream</b></td>
+            <td width="170"><b>Annotations</b></td>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user|
+          i=user[:user]
+        %>
+          <tr class="<%= cycle("even","odd") %>">
+
+            <td>
+                <hr/>
+                <a href="/users/<%=i.id %>"><img src="/users/<%=  i.id %>.jpg" width="50"/></a><b><br/><%= i.login %></b>
+                <font style="font-size:11px"><br/><font style="color:#777777;">City:</font> <%= i.location %>
+              <br/><font style="color:#777777;"> Measurements: </font><%= i.measures.count  %>
+              <br/><font style="color:#777777;"> Annotations: </font><%= i.owned_taggings.count%>
+              </font>
+            </td>
+            <td>
+              <%=  image_tag "/users/#{i.id}/tracks/last.png?size=200x100", :height=>100 %><font style="font-size:11px"><br/>Updated <%=distance_of_time_in_words(i.last_activity_at, Time.now) %> ago</font>
+            </td>
+            <td>
+              <% unless user[:tags].empty?
+                   tag_cloud user[:tags], %w(tag1 tag2 tag3 tag4) do |tag, css_class| %>
+                      <%= link_to "#{tag.name}", {:controller=>:tags, :action=>:filter, :tags => "tags:#{tag.name}"}, :class => css_class %>,
+                    <% end
+              end %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+  <% end %>
+</div>
+
+<hr/>
+
+<div>
+<img src="/images/slide-real-time.jpg" width=100 />
+<br/>
+<a href="/users/realtime.kml">See collective exposure in realtime</a> (only public profiles)
+</div>

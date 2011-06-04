@@ -1,0 +1,77 @@
+<%
+xml = Builder::XmlMarkup.new(:indent=>2)
+xml.instruct!
+xml.kml(:xmlns => "http://earth.google.com/kml/2.2") {
+  xml.Document {
+
+
+    # contributors layer
+    xml.Folder{
+      xml.name("Level of exposure")
+      @ranges.each_with_index { |range, i|  
+        xml.Folder{
+          xml.name("#{range[:label]}")
+          range[:urbanel].each {|r|
+
+            density=(r[:size].to_f/(r[:o].surf)*2000.0)
+            color=get_color_loudness(r[:average],"FF")
+            coord=""
+            r[:geom][0].each { |point|
+              coord+="#{point.lng},#{point.lat},#{density.to_f*100} \n"
+            }
+            xml.Placemark{
+              xml.name("Seg of #{r[:name]} - #{r[:average]} dB(A)")
+              xml.description("District #{r[:name]}<br/> Gathering #{r[:size]} measures<br/>Aggregated measures: #{r[:loudness]} ")
+
+              xml.Style{  
+                xml.LineStyle{
+                  xml.color(color)
+                  xml.colorMode("normal")
+                  xml.width("2")
+                  # #xml.fill(true) #xml.outline(false)
+                }
+                xml.PolyStyle{
+                  xml.color(color)
+                  xml.colorMode("normal")
+                  xml.outline(1)
+                  xml.fill(true)
+                }
+              }
+              # set the color according the loudness set the height according to
+              # the intensity of the contribution
+
+               xml.Polygon{
+            xml.extrude(true)
+            xml.tessellate(false)
+            xml.altitudeMode("relativeToGround")
+            xml.outerBoundaryIs{
+              xml.LinearRing{
+                xml.coordinates(coord)
+              }
+            }
+            #xml<< "#{r.geom.as_kml}"
+          }
+            }
+          }
+        }
+      }
+    }
+    #xml.Folder{
+    #xml.name("Corrected")
+    #@measures.each_with_index { |point, i|
+    #xml.Placemark{
+    #xml.name("corrected")      
+    #xml.description("#{point.location}")
+    #xml.Point{
+    #xml.coordinates("#{point.corrected.lng},#{point.corrected.lat},#{point.loudness}")
+    #}
+
+    #}
+    #}
+    #}
+  }
+
+}
+
+
+%><%= xml.target! %>

@@ -1,0 +1,206 @@
+<%- content_for(:head) do -%>
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+  <!-- <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAEDqSJ7sjOq1o3M9HFMUctBT0NiLLVHrVqet-Tka_0tk-YB2j8RThZNhTM6xrex3wBLzNXKA57-KJww"
+          type="text/javascript"></script> -->
+<% end %>
+
+<style>
+  a.size0{font-size:110%;line-height:1.5em;color:#9A9;}
+  a.size1{font-size:120%;line-height:1.4em;color:#7A7;}
+  a.size2{font-size:130%;line-height:1.3em;color:#6A6;}
+  a.size3{font-size:140%;line-height:1.2em;color:#4A4;}
+  a.size4{font-size:150%;line-height:1.1em;color:#3A3;}
+  a:hover{color:white;background-color:#575757;}
+  time{color:#22ff22}
+  li{position:relative;list-style:none;   zoom:1;float:left;margin:0;padding-right:0;min-height:19px;_height:19px;}
+  /* li.first{background-position:-12px -1000px;}
+   li.tag{padding:0 0 0 7px;margin-left:-7px;background:transparent url('../images/del_sprite_tagScopeNav.png') -12px -1000px no-repeat;_background-image:url('../images/del_sprite_tagScopeNav.gif');}
+   a.onlytag{display:block;float:left;padding:4px 0 0 5px;}
+   a.removetag{display:block;float:left;height:17px;width:17px;padding-top:2px;background:#8E8E8E url('../images/del_sprite_tagScopeNav.png') 100% -1100px no-repeat;_background-image:url('../images/del_sprite_tagScopeNav.gif');}
+  */
+  #scope{display: block;
+	overflow: auto;
+	padding: 5px;
+	border: 1px solid #CCC;
+	background-color:#F7F7F4;}
+  .space{float:left}
+  .subcategory{padding-left:20px;padding-top:7px;padding-right:7px;text-align:right;}
+</style>
+
+
+<script>
+  document.observe("dom:loaded", function() {
+    // the element in which we will observe all clicks and capture
+    // ones originating from pagination links
+    var container = $(document.body)
+
+    if (container) {
+      var img = new Image;
+      img.src = '/images/icons/spinner.gif';
+
+      function createSpinner() {
+        return new Element('img', { src: img.src, 'class': 'spinner' });
+      }
+
+      container.observe('click', function(e) {
+        var el = e.element()
+        if (el.match('.pagination a')) {
+          $("results").insert(createSpinner());
+          new Ajax.Request(el.href, { method: 'get' });
+          e.stop();
+        }
+      })
+    }
+  })
+
+
+</script>
+<div  style="float:left;">
+
+<% unless @tags.nil? || @tags.empty? %>
+  <div id="scope">
+    <b>Scope</b>: 
+    <% @tags.each_with_index { |tag,i|
+      tmp=@tags.clone
+      tmp.delete(tag)
+      until_link=@tags[0..i].join(",")
+      remove_link=tmp.join(",")
+    %>
+      <%= link_to "#{tag}", { :action => :filter, :tags => until_link}, :class => "onlytag" %><%= link_to "[x]", { :action => :filter, :tags => remove_link}, :class => "onlytag" %> >>
+    <%  } %>
+  </div>
+  <br/>
+  <% end  %>
+
+  <div id="sematic_space" class="space">
+    <h2>Semantic space</h2>
+    <table width="500">
+      <tr><td valign="top" style="margin-top:10px" colspan="2"><b><i><font size="2.5px">Noise Exposure</font></i></b> </td></tr>
+      <tr><td valign="top" class="subcategory">Type</td><td><%
+          generate_tag_cloud(@tags_clouds, @tags,"loudness_value") { |link|
+          %>
+            <%= link  %>,
+          <% }%>
+        </td></tr>
+      <tr><td valign="top" class="subcategory">Signal behavior</td><td><%
+          generate_tag_cloud(@tags_clouds, @tags,"loudness_behavior") { |link|
+          %>
+            <%= link  %>,
+          <% }%>
+        </td></tr>
+      <tr><td valign="top" style="padding-top:10px" colspan="2"><hr/><b><i><font size="2.5px">Social</font></i></b> <font size="0.3px">(by the users)</font></td></tr>
+        <tr><td></td><td>
+
+          <%
+          generate_tag_cloud(@tags_clouds, @tags,"tags") { |link|
+          %>
+            <%= link  %>,
+          <% }%>
+
+        </td>
+      </tr>
+      <tr><td valign="top" style="padding-top:10px" colspan="2"><hr/><b><i><font size="2.5px">Sensor</font></i></b></td></tr>
+        <tr><td></td><td>
+        <tr><td valign="top" class="subcategory" >Mobility</td><td>
+          <%
+          generate_tag_cloud(@tags_clouds, @tags,"user_mobility") { |link|
+          %>
+            <%= link  %>,
+          <% }%>
+        </td>
+      </tr>
+      <tr><td valign="top" class="subcategory" >Device:</td><td>
+          <%
+          generate_tag_cloud(@tags_clouds, @tags,"user_sensor") { |link|
+          %>
+            <%= link  %>,
+          <% }%>
+        </td>
+      </tr>
+      <tr><td valign="top" class="subcategory" >Calibrated:</td><td>
+          <%
+          generate_tag_cloud(@tags_clouds, @tags,"user_calibrated") { |link|
+          %>
+            <%= link  %>,
+          <% }%>
+        </td>
+      </tr>
+      <tr><td valign="top" style="padding-top:10px" colspan="2"><hr/><b><i><font size="2.5px">Weather</font></i></b></td></tr>
+       <tr><td valign="top" class="subcategory" >Type</td><td><%
+          generate_tag_cloud(@tags_clouds, @tags,"weather_general") { |link|
+          %>
+            <%= link  %>,
+          <% }%>
+        </td></tr>
+      <tr><td valign="top" class="subcategory">Temperature</td><td><%
+          generate_tag_cloud(@tags_clouds, @tags,"weather_temperature") { |link|
+          %>
+            <%= link  %>,
+          <% }%>
+        </td></tr>
+      <tr><td valign="top" class="subcategory">Wind</td><td><%
+          generate_tag_cloud(@tags_clouds, @tags,"weather_wind") { |link|
+          %>
+            <%= link  %>,
+          <% }%>
+        </td></tr>
+      <tr><td valign="top" style="margin-top:10px" colspan="2"><hr/><b><i><font size="2.5px">Time</font></i></b></td></tr>
+      <tr><td valign="top" class="subcategory">Day</td><td><%
+          generate_tag_cloud(@tags_clouds, @tags,"time_day") { |link|
+          %>
+            <%= link  %>,
+          <% }%>
+        </td></tr>
+      <tr><td valign="top" class="subcategory">Week</td><td><%
+          generate_tag_cloud(@tags_clouds, @tags,"time_week") { |link|
+          %>
+            <%= link  %>,
+          <% }%>
+        </td></tr>
+      <tr><td valign="top" class="subcategory">Season</td><td><%
+          generate_tag_cloud(@tags_clouds, @tags,"time_season") { |link|
+          %>
+            <%= link  %>,
+          <% }%>
+        </td></tr>
+
+      
+      <tr><td valign="top" style="margin-top:10px" colspan="2"><hr/><b><i><font size="2.5px">Location</font></i></b></td></tr>
+      <tr><td valign="top" class="subcategory">Type</td><td><%
+          generate_tag_cloud(@tags_clouds, @tags,"location_type") { |link|
+          %>
+            <%= link  %>, 
+          <% }%>
+        </td></tr>
+
+      <tr><td valign="top" class="subcategory">City</td><td><%
+          generate_tag_cloud(@tags_clouds, @tags,"location_city") { |link|
+          %>
+            <%= link  %>, 
+          <% }%>
+        </td></tr>
+      <tr><td valign="top" class="subcategory">Zip</td><td><%
+          generate_tag_cloud(@tags_clouds, @tags,"location_district") { |link|
+          %>
+            <%= link  %>,
+          <% }%>
+        </td></tr>
+      <tr><td valign="top" class="subcategory">Street</td><td><%
+          generate_tag_cloud(@tags_clouds, @tags,"location_street") { |link|
+          %>
+            <%= link  %>,
+          <% }%>
+        </td></tr>
+      
+    </table>
+  </div>
+
+  <div id="geographical_space" class="space">
+    <h2>Geographical space</h2>
+    <% unless @tags.empty? %>
+      <a href="/tags/filter.kml?tags=<%= @tags.join(",") %>"><img alt="Kml_32x32" src="/images/icons/KML_32x32.png?1249893637" border="0"></a>
+    <% end %>
+  </div>
+
+</div>
+

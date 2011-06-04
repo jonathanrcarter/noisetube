@@ -1,0 +1,17 @@
+<%- content_for(:head) do -%>
+  <title>NoiseTube.net - User <%= @user.login  %> - Upload data</title>
+<% end  %>
+  <h2>Upload your data</h2>
+
+  <p>
+  <% form_tag( {:action => 'uploadxml'}, {:multipart => true} ) do -%>
+    <p>
+    <label for="file">XML file:</label><%= file_field_tag "xml_file" %><br/>
+    <%= submit_tag "Upload and process" %>
+    </p>
+  <% end -%>
+    <% if flash[:error] %>
+        <p style="color: red;"><%= flash[:error] %></p>
+    <% end %>
+  </p>
+

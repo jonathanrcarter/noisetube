@@ -1,0 +1,139 @@
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript">
+
+    var map;
+
+    $(document).ready(function() {
+
+        var latlng = new google.maps.LatLng(20, 0);
+        var myOptions = {
+            zoom: 2,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+        <% @cities.each { |data|
+        city=data[:city]
+        tags=data[:tags]
+        from_time=city.last_activity_at
+
+        %>
+        add_marker(map, "<%= city.name %>", <%= city.lat %>, <%= city.lng %>, "<div style='width:300px;height:340px' ><table><tr><td width='130px'><b><%= city.name %>, <%= city.country %></b><font color='#777777' style='font-size:11px'>" +
+                      "<br/><%= pluralize city.users.count, 'contributor' %><br/><%= pluralize city.measures.count, 'measurement' %><br/><%= pluralize city.tags_count, 'annotation' %></font></td> " +
+                      "<td><a href='/cities/<%= city.id %>.rss' alt='Follow its activity'><img src='/images/icons/georss.png' alt='GeoRSS'/></a><% if data[:has_map]
+                      %><a href='/cities/<%= city.id %>.kmz' text='Watch the Map'><img  src='/images/icons/KML_32x32.png?1256048828' /></a><%
+                      end %></td></tr>" +
+                      "<tr><td style='padding-top:5px' valign=top align='left' colspan=2><b>Last updated</b> <%= time_ago_in_words(from_time) unless from_time.nil? %> ago by:<br/><% data[:contributors].each{|cont|
+                       user=cont[0] %><a style='float: left;  margin: 1px;' href='/users/<%= user.id %>'><img src='/users/<%= user.id %>.jpg' width='50' title='<%= user.login %>' /></a><%}%></td></tr>" +
+                      "<tr><td style='padding-top:5px' valign=top align='left' colspan=2><b>Decibel distribution</b> <br/>(unit:leqdB(A) 1s)<br/><img src='/api/leqdist.png?city=<%= city.id %>&size=160x80' /></td></tr>" +
+                      "<tr><td style='padding-top:5px' valign=top align='left' colspan=2><b>Social Tagging</b><br/><%     
+             unless tags.empty?
+                 tag_cloud tags, %w(tag1 tag2 tag3 tag4) do |tag, css_class| %><a class='<%= css_class %>' href='/tags/filter?tags=tags:<%= tag.name %>' alt='<%= tag.count %>'><%= tag.name %></a>, <%
+                 end
+                 end %></td></tr></table></div>");
+
+        <%}%>
+
+    });
+
+    function add_marker(map, city_name, lat, lng, content_s) {
+        var myLatlng = new google.maps.LatLng(lat, lng);
+        var marker = new google.maps.Marker({position: myLatlng, map: map, title:city_name});
+        var infowindow = new google.maps.InfoWindow({content: content_s});
+        google.maps.event.addListener(marker, 'click', function() {
+            infowindow.open(map, marker);
+        });
+    }
+</script>
+
+<%= image_tag "cities-screenshot.jpg" %>
+<br/>
+<p><b>To view the maps in KML format you need to install
+  <a href="http://earth.google.com/download-earth.html">Google Earth</a> (v5 or higher).</b></p>
+<p>
+  Each KML file is with  contains a map consisting of several layers:
+<ul>
+  <li>Dynamic Legend layer: different distributions (levels of exposure , social tagging) changing according to the area
+    viewed
+  </li>
+  <li>Measurements Layer (separated by range of exposure to noise) </li>
+  <li>Semantics Layer (Annotations)</li>
+  <li>Contribution Layer</li>
+  <li>Temporal aspect: Use the history panel to play with the temporal dimension</li>
+</ul>
+<br/>
+</p>
+
+<h3><%=@cities.size%> Cities</h3> 
+<div id="map_canvas" style="width:100%; height:550px"></div>
+<p><br/></p>
+<h3>Featured cities</h3>
+
+
+<table border="0" align="center" cellspacing="10">
+  <thead>
+  <th><b>Cities</b></th>
+  <th width=150><b>Last traces</b></th>
+  <th><b>Social Annotations</b></th>
+  <th><b>Raw loudness distribution</b></th>
+  <th><b>Track activity<br/>(GeoRSS)</b></th>
+  <th><b>View the map</b></th>
+  </thead>
+  <tbody>
+  <% @best_cities.each do | data|
+      city=data[:city]
+      tags=data[:tags]
+  %>
+
+
+      <tr style="padding-top:10px;margin-top:10px">
+
+        <td><b><%= city.name %>, <%= city.country %></b>
+          <font color="#777777" style="font-size:11px">
+            <br/><%= pluralize city.users.count, 'contributor' %>
+            <br/><%= pluralize city.measures.count, 'measurement' %>
+            <br/><%= pluralize city.tags_count, 'annotation' %>
+          </font>
+        </td>
+
+
+        <td width="100" style="padding-left:3px">
+          <%
+             unless city.measures.last.nil?
+                 from_time=city.last_activity_at %>
+              <%= time_ago_in_words(from_time) %> ago by:
+              <ul style="list-style-type: none;">
+                <%
+
+                   data[:contributors].each{|cont|
+                       user=cont[0]
+                %>
+                    <li style="list-style-type: none;float: left;  margin: 1px;">
+                    <a href="/users/<%= user.id %>"><img src="/users/<%= user.id %>.jpg" width="50" alt="<%= user.login %>"/></a>
+                    </li>
+                <% } %></ul>
+          <%
+             else
+          %> No measurements yet <!--, please contribute!-->
+          <% end %> </td>
+
+
+        <td width=100>
+          <%
+             unless tags.empty?
+                 tag_cloud tags, %w(tag1 tag2 tag3 tag4) do |tag, css_class| %>
+                  <a class="<%= css_class %>" href="/tags/filter?tags=tags:<%= tag.name %>"><%= tag.name %></a>
+              <% end
+                 end %>
+        </td>
+        <td><img src="/api/leqdist.png?city=<%= city.id %>&size=160x80"/></td>
+        <td><a href="/cities/<%= city.id %>.rss"><img src="/images/icons/georss.png" alt="GeoRSS"/></a></td>
+        <td><% if data[:has_map] %>            
+         <%=link_to "#{image_tag("icons/KML_32x32.png")}", city_url(city, :format=>"kmz") %>
+              <% end %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

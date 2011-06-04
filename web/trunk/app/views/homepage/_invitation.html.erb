@@ -1,0 +1,28 @@
+<div id="invitation">
+  <div id="notice" class="notice"></div> 
+  <% remote_form_for :invitation, @invitation, :url => "/invitation", :html => { :before => "Element.hide('first_submit')",
+    :complete => "Element.show('first_submit')", :id => "invitation_form" } do |f|  %>
+    <table>
+      <tr>
+        <td>
+          <strong><%= f.label "email" %>:</strong><br/><%= f.text_field :email, :size=>"15" %>
+        </td>
+        
+        <td style="width:170px;padding-left:5px"> 
+          <strong>City: (San Francisco, US)</strong><br/><%= f.text_field :location , :size=>"20" %>
+        </td>
+        
+        <td>
+          <strong>Your phone: </strong><br/> <%= f.select :phone, [[ "Sony Ericsson" , "Sony Ericsson"], [ "Nokia N95" , "Nokia N95"],[ "iPhone", "iPhone"], ["Other" , "Other"]] %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <a href="#" onclick="Element.toggle('comment_b')"><strong> <%= f.label "comment" %>(optional)</strong></a>
+          <div id="comment_b" style="display:none">
+            <%= f.text_area :comment, :size=>"33x5" %>
+          </div>    
+        </td>
+        <td valign="bottom"><%= f.submit "Invite me!", :id => 'first_submit', :style => 'display'  %></td>
+      
+  </tr></table><% end %></div>

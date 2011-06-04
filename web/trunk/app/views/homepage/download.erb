@@ -1,0 +1,102 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<script language="Javascript">
+  function toggle(){
+      $('jsr').toggle();
+  }
+</script>
+
+<div class="clearfix">
+	<div class="col nleft">
+		<div class="page_content">
+                     <h1>Download NoiseTube Mobile</h1>
+                    <br/>
+
+                    <h2>Android version</h2>
+                    <p><b>News (2011-06-01):</b> We are proud to announce the general availability of the Android version of NoiseTube Mobile.<br/>
+                    The application is distributed through the Android Market. Search for "noisetube" in the Market app on your Android phone or go <a href="https://market.android.com/details?id=net.noisetube">here</a>.<br/>
+                    </p>
+
+                    <h3>Important note</h3>
+                    <ul>
+                      <li>
+                        The set of Android phone for which we have calibration settings is currently limited. New settings will become available (and will be automatically downloaded) in the coming weeks.
+                      </li>
+                    </ul>
+
+                    <h2 id="iphone">iOS version</h2>
+                    <p>There is no NoiseTube app for Apple iOS devices (iPhone, iPod Touch or iPad) yet, but we are currently developing one.</p>
+                    <br/>
+
+                    <h2>Java ME version</h2>
+                    <p>
+                      This version is for phones with the Java ME CLDC v1.1/MIDP v2.0 platform. Your phone needs to support the JSR-179 Location API and the JSR-135 Mobile Media API. This version has been tested on Nokia S60/Symbian based devices, notably the Nokia 5230, as well as a few Sony Ericsson phones.<br/>
+                      <b>News (2011-06-01):</b> We are proud to announce the release of v2.1.0 for Java ME, including many stability and usability improvements.
+                    </p>
+                    <div class="listwithtitle">
+                    <h3>Download &amp; installation</h3>
+                    <ul>
+                    <li><i>On your phone:</i><p>Go to <a href="http://noisetube.net/mobile.jad">http://noisetube.net/mobile.jad</a> in your phone's browser.</p> </li>
+                    <li><i>Manually:</i><ul>  <li><a href="/downloads/mobile/NTMobile_CURRENT.zip">Download .zip (includes User Guide document)</a></li>
+                                              <li>Extract the .zip file to find the .jar file (the actual application) and .jad file (a descriptor). You need both to install the application on your phone, follow the instructions in the user guide.</li></ul>
+                    </li></ul>
+
+                    <h3>Important notes</h3>
+                    <ul>
+                      <li>
+                        <b>Nokia owners:</b> Due to a known problem with the Mobile Media API implementation on Nokia phones NoiseTube needs to be restarted manually about every 20 minutes on such phones (to avoid a crash).
+                        A warning dialog will appear on the screen inviting the user to restart the application. If it is restarted within 5 minutes the application will continue with the same measurement track, i.e. measurements will be represented on the same downloadable map on the NoiseTube website.
+                      </li>
+                      <li>
+                        <b>Researchers &amp; professionals:</b> Due to the same Nokia problem the version offered for download samples sound at only 16kHz. A version sampling at 48kHz is available upon request.
+                      </li>
+                    </ul>
+
+                    <h3>Version history</h3>
+                    <ul>
+                       <li><b>NEW</b> Current version: v2.1.0 (2011-06-01): Many stability improvements, fix for problem on Sony Ericsson W995, improved GUI on smaller screens, etc.</li>
+                       <li>Changes in v2.0.0 (2011-04-08): downloadable calibration settings, pause feature, improved user interface, stability improvements (incl. work-around for common Nokia crash bug), etc.</li>
+                       <li>Changes in v1.8.1 (2010-11-29): bug fixes</li>
+                       <li>Changes in v1.7.0: certificate fixed, calibrated for Nokia 5230, bugfixes</li>
+                       <li>Changes in v.1.6.9: calibrated for more models</li>
+                       <li>Changes in v.1.6.8: file wring bug fixed</li>
+                       <li>Changes in v1.5.x and earlier: lot's of fixes and improvements made in preparation of NoiseTube demostration during Sony CSL Open House 2009 (e.g. better support for Sony Ericsson).</li>
+                    </ul>
+                    </div>
+                </div>
+        </div>
+	<div class="col nright">
+		<div class="page_content">
+                  <h1>Remarks</h1>
+                  <br/>
+
+                  <h2>Calibration</h2>
+                  <p>
+                    To get accurate measurements our software needs to be calibrated for each phone model (because of hard- and software differences).
+                    The Android version and v2.0.0 (and newer) of the Java ME version autmoatically download the latests calibration setting from the NoiseTube website when the application is started.
+                  </p>
+                  <div class="listwithtitle">
+                  <b>Current compatible (= calibrated) phone models:</b>
+                  <ul>
+                    <li>Android: models to be added soon</li>
+                    <li>Java ME
+                      <ul>
+                        <li>Nokia: N96, N95 8GB, N85, E65, 5800, 5230</li>
+                        <li>Sony Ericsson W995</li>
+                      </ul>
+                    </li>
+                  </ul>
+                  If you have a sound level meter and want to help us to calibrate other phone models, <a href="/help#faq">check the FAQ</a>.
+                  </div>
+                  <br/>
+                  
+                  <h2>Support</h2>
+                  <p>Instructions & Help regarding the installation, configuration  can be found in the <a href="/help">Help section</a>.<br/>
+                  If you have any trouble using NoiseTube Mobile, please do not hesite to <a href="/team">contact us</a>.
+                  </p>
+		</div>
+	</div>
+</div>

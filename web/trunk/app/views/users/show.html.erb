@@ -1,0 +1,94 @@
+<%- content_for(:head) do -%>
+  <title>::NoiseTube:: User <%= @user.login  %> :: Digital traces of my exposure to pollution</title>
+  <!-- <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAEDqSJ7sjOq1o3M9HFMUctBT0NiLLVHrVqet-Tka_0tk-YB2j8RThZNhTM6xrex3wBLzNXKA57-KJww"
+          type="text/javascript"></script> -->
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="<%= user_url(@user, :format=>:rss)%>" />
+<% end %>
+<script>
+  document.observe("dom:loaded", function() {
+  // the element in which we will observe all clicks and capture
+  // ones originating from pagination links
+  var container = $(document.body)
+
+  if (container) {
+    var img = new Image;
+    img.src = '/images/icons/spinner.gif';
+
+    function createSpinner() {
+      return new Element('img', { src: img.src, 'class': 'spinner' });
+    }
+
+    container.observe('click', function(e) {
+      var el = e.element()
+      if (el.match('.pagination a')) {
+        $("results").insert(createSpinner());
+        new Ajax.Request(el.href, { method: 'get' });
+        e.stop();
+      }
+    })
+  }
+})
+</script>
+
+<div style="float:left;width:250px">
+  <div id="summary">
+    <p>
+      <%= image_tag "/users/#{@user.id}.jpg", :width=>50, :title=>"#{@user.login} (#{@user.role if @user.role.nil?})" %>
+      <br/><b> <%= @user.login   %></b>
+    </p>
+    <p><img src="/images/icons/Activity-Monitor_32x32.png" align="absmiddle" alt="Activity"/>&nbsp;<b>Activity:</b>
+      <br/>Last: <%= distance_of_time_in_words(@summary[:last_activity], Time.now) unless @summary[:last_activity].nil? %> ago
+      <br/>Total measurements: <%= @summary[:measures_size] %>
+      <br/>Total annotations: <%= @summary[:tags_assignement_size] %>
+    </p>
+    <p/>
+    <% if logged_in? && @user==current_user %>
+      <p>
+        <a href="/users/<%= @user.id %>/uploaddata"><img src="/images/icons/Upload_32x32.png" align="absmiddle" alt="Upload"/>&nbsp;<b>Upload data</b></a>
+        <% if flash[:upload_notice] %>
+          <div class="notice" style="color: green;"><%= flash[:upload_notice] %><br/></div>
+        <% end %>
+      </p>
+    <% end %>
+    <p>
+      <img src="/images/icons/tag.png" align="absmiddle" alt="Tags"/>&nbsp;<b>My semantic profile:</b><br/>
+      <p>My tags:<br/>
+      <% unless @tags.empty?
+        tag_cloud @tags, %w(tag1 tag2 tag3 tag4) do |tag, css_class| %>
+          <%= link_to "#{tag.name}",{:controller=>:tags, :action=>:filter, :tags => "tags:#{tag.name}"}, :class => css_class, :title=>"#{tag.count} tags" %>,
+        <% end
+      end %></p>
+      <p>Location:<br/>
+      <% unless @tags_location.empty?
+        tag_cloud @tags_location, %w(tag1 tag2 tag3 tag4) do |tag, css_class| %>
+          <%= link_to "#{tag.name}", {:controller=>:tags, :action=>:filter, :tags => "location:#{tag.name}"}, :class => css_class, :title=>"#{tag.count} tags" %>,
+        <% end
+      end %></p>
+      <p>Time:<br/>
+      <% unless @tags_time.empty?
+        tag_cloud @tags_time, %w(tag1 tag2 tag3 tag4) do |tag, css_class| %>
+          <%= link_to "#{tag.name}", {:controller=>:tags, :action=>:filter, :tags => "time:#{tag.name}"}, :class => css_class, :title=>"#{tag.count} tags" %>,
+        <% end
+      end %></p>
+      <p>Noise Exposure:<br/>
+      <% unless @tags_loudness.empty?
+        tag_cloud @tags_loudness, %w(tag1 tag2 tag3 tag4) do |tag, css_class| %>
+          <%= link_to "#{tag.name}", {:controller=>:tags, :action=>:filter, :tags => "loudness:#{tag.name}"}, :class => css_class, :title=>"#{tag.count} tags" %>,
+        <% end
+      end %></p>
+    </p>
+    <p/>
+    <p>
+      <img src="/images/icons/calendar-date-32x32.png" align="absmiddle" alt="Average day"/>&nbsp;<b>Daily noise exposure:</b><br/><br/>
+      (no image)
+      <% #<img src="/api/timedist_extended.png?user=<%= @user.id
+          %>
+    </p>
+  </div>
+</div>
+<div style="float:left">
+  <b style="font-size:16px">Timeline:</b> <b style="font-size:14px"><%= @user.tracks.count  %> digital traces of my exposure to noise pollution</b> <a href="<%= user_url(@user, :format=>:rss)  %>"><img src="/images/icons/georss.png" align="absmiddle" alt="GeoRSS"/></a>
+  <br/><br/>
+  <%= render :partial => "track_list" %>
+</div>

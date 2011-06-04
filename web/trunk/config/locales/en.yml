@@ -1,0 +1,30 @@
+en:
+  intro: 
+    title: "Turn your mobile phone into an environmental sensor and participate to the monitoring of noise pollution"
+    paragraph: "<p>Noise pollution is a serious problem in many cities. NoiseTube is a research project, started in 2008 at the <a href=\"http://www.csl.sony.fr\">Sony Computer Science Lab in Paris</a>, which aims to develop a new participative approach for monitoring noise pollution by involving the general public. Our ambitious goal is to extend the current usage of mobile phones by turning them into noise sensors enabling citizens to measure their own exposure in their everyday environment. Furthermore each user can also participate to the creation of a collective map of noise pollution by sharing the geolocalized measurement data with the NoiseTube community.</p><p>By installing the <a href=\"/download\">free app</a> on your smartphone, you will be able to measure the level of noise in dB(A) (with a precision a bit lower than a sound level meter), and contribute to collective noise mapping effort by annotating it (tagging, e.g. subjective level of annoyance), next this information can be automatically published on this website (3G/GPRS or manual upload on any PC).</p>"
+  motivation:
+    title: "Motivations to participate"
+    citizen: 
+      title: "Citizens and Communities concerned with noise"
+      arguments: "<ul><li>Measure your daily sound exposure in dB(A) with your mobile phone</li><li>Tag noisy sources to inform the community about them</li><li>Visualize your measures on a map and contribute to the creation of a collective map of noise</li> <li>Compare your experience to the others</li><li>Privacy: data are yours.You decide to make them public or not</li></ul>"
+    goverment: 
+      title: "Local governments / city planners"
+      arguments: "<ul><li>Improve decision making by understanding local and global noise pollution in your city using maps and statistics</li><li>Get direct feedback and opinions from cititzens</li></ul>"
+    researcher: 
+      title: "Researcher"
+      arguments: "<ul><li>Get access and analyze the (anonymized) data</li><li>Find out what is important in soundscape perception</li></ul>"
+    developper: 
+      title: "Developers"
+      arguments: "<ul><li>Use our environmental sensor web API to do your web mashups</li></ul>"
+  contact:
+    title: "Open source"
+    paragraph: "<p>NoiseTube is built around the spirit of open participation and the software that has been developed as part of the project has been placed under the <a href=\"http://www.gnu.org/licenses/lgpl-2.1.html\">GNU LGPL v2.1</a> open source license. The source code has been published on <a href=\"http://code.google.com/p/noisetube\">Google Code</a>. We welcome anyone who wants to to contribute to the project (either as a developer or otherwise) to <a href=\"/team\" style=\"text:underline\">contact us</a>.</p>"
+  participation:
+    title:  "How to participate"
+    paragraph: "If you have an Android-based or Java ME-capable smartphone with GPS (iPhone version is planned), download the <a href=\"/download\" style=\"text:underline\">free app</a> to participate!"
+  images:
+    legend1: "The sound exposure of a user during a walk in Paris. The circles represent the loudness in <a href='http://en.wikipedia.org/wiki/A-weighting'>dB(A)</a> perceived by the user"
+    legend2: "The mobile application has 3 features:<br/>- Measure noise <br/>- Localize it <br/>- Tag it</p><p>The data are sent to the noisetube server through internet in real-time"
+    legend3: "Map of noise pollution visualisable on Google Earth"
+    legend4: "A real-time visualisation of the  collective pollution exposure on Google Earth"
+    legend5: "The noise exposure of 2 lines of the RATP subway, Paris"

@@ -1,0 +1,42 @@
+<title>::NoiseTube:: Edit Account of User <%= @user.login  %></title>
+
+<h1>Your profile</h1>
+
+<div>
+<% form_for(@user, :html => {:multipart => true}) do |f| %>
+  <p><label>Username: </label>
+    <b> <%= @user.login %></b>
+  </p>
+  <p><%= image_tag user_path(@user, :jpg) %>
+  <br/>
+   <a href="#" onclick="Element.toggle('picture_b')">Change the picture</a>
+  
+  <div id="picture_b" style="display:none">
+    <%= f.file_field (:image_file, :size => 10) %>             
+  </div>    
+  <p><label>Type of user (e.g. citizen, expert, researcher, city official, etc.):</label><br>
+    <%= f.text_area(:role, :size=>"20x3", :max=>250,  :value=>@user.role ||  "citizen") %> 
+
+  <p><label>City, Country:</label><br>
+    <%= f.text_field(:location, :size => 20) %> 
+  </p>
+  <%
+ # <p><img src="http://lh5.ggpht.com/_JHm6J83mcAc/SIZG3XVB9wI/AAAAAAAAA50/3KHBflyC46E/icon_twitter.png"/><label>Twitter Account:</label><br>
+ #   <%= f.text_field(:twitter_account, :size => 20)  
+ #   <%= f.text_field(:twitter_password, :size => 20) 
+ # </p>
+%>  
+  <p><label>Phone brand &amp; midel:</label><br>
+    <%= f.text_field(:phonemodel, :size => 20) %> 
+  </p>
+  <p><label>Privacy:</label><br/>
+  <span class="style3"><%= f.check_box :public %>Make my data public by default</span></p>
+  <p>
+    <%= f.submit "Save" %>
+  </p>
+<% end %>
+</div>
+  
+<p id="APIKeyInfo"><strong>Your API Key:</strong> <%= @user.salt %></p>
+
+

@@ -1,0 +1,108 @@
+<%
+    xml = Builder::XmlMarkup.new(:indent=>2)
+    xml.instruct!
+    xml.kml(:xmlns => "http://earth.google.com/kml/2.2") {
+      xml.Document {
+            
+        # MEASURE LAYER
+        xml.Folder{
+          xml.name("decibel layer")
+          xml.open(1)
+          xml.visible(1)
+          @points.each_with_index { |point, i|
+            xml.Placemark{
+              xml.name("#{point.loudness} dB(A)")
+              # #set the color according the loudness
+              xml.Style{  
+                xml.PolyStyle{
+                  color=get_color(point)
+                  xml.color(color)
+                  xml.colorMode("normal")
+                  xml.fill(true)
+                  xml.outline(false)
+                }
+              }
+              coord=generate_kmlcircle(3100+point.loudness,point.lng,point.lat,10,6)
+              xml.MultiGeometry{
+               # xml.Point{
+                 # xml.coordinates("#{point.lng},#{point.lat},#{point.loudness}")
+              #  }
+                xml.Polygon{
+                  xml.extrude(true)
+                  #xml.tessellate(true)
+                  xml.altitudeMode("clampToGround")
+                  xml.outerBoundaryIs{
+                    xml.LinearRing{
+                      xml.coordinates(coord)  
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        
+    
+    # SEMANTIC LAYER
+        xml.Folder{
+          xml.name("tagging layer")
+          xml.open(1)
+          xml.visible(1)
+          @points.each { |point|
+            #p point.tags.size
+            point.tags.each { |tag| 
+              xml.Placemark{
+                xml.name("#{tag.name}")
+                xml.extrude(true)
+                xml.altitudeMode("relativeToGround")
+                xml.Point{
+                  xml.coordinates("#{point.lng},#{point.lat}") 
+                }     
+              }
+            }
+          }
+        }
+ 
+# SUBJECTIVITY
+#      xml.Folder {
+#        xml.name("Impression")
+#        measure.each { |measure|
+#         if measure.rating.nil?
+#          xml.Placemark{
+#            xml.name("rating tag.name)
+#           
+#             
+#            #set the color according the loudness
+#            xml.Style{  
+#              xml.PolyStyle{
+#                color="F000FF00" if (tag.feeling==2)
+#                color="F0808000" if (tag.feeling==1)
+#                color="F0a0a0a0" if (tag.feeling==0)
+#                color="F005A0DD" if (tag.feeling==-1)
+#                color="F00000FF" if (tag.feeling==-2)
+#                puts color
+#                xml.color(color)
+#                xml.colorMode("normal")
+#                xml.fill(true)
+#                xml.outline(false)
+#              }
+#            }
+#          
+#            coord=create_circle(tag.lng,tag.lat,10)
+#           
+#            xml.Polygon{
+#              xml.extrude(true)
+#              xml.tessellate(true)
+#              xml.altitude("clampToGround")
+#              xml.outerBoundaryIs{
+#                xml.LinearRing{
+#                  xml.coordinates(coord)  
+#                }
+#              }
+#            }
+#          }
+#        }
+#      }
+      }
+    }
+%><%= xml.target! %>

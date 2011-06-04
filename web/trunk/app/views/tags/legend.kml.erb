@@ -1,0 +1,24 @@
+<%
+xml = Builder::XmlMarkup.new(:indent=>2)
+xml.instruct!
+xml.kml(:xmlns => "http://earth.google.com/kml/2.2") {
+  xml.Document {
+    xml.ScreenOverlay{
+      xml.name("Tags")
+      xml.Icon{
+        xml.href("#{@baseurl}/api/tagdist.png?box=#{@box}&size=250x120&tags_type=#{@tags_type}&tags=#{@tags.join(",")}")
+      }
+      xml.overlayXY(:x=>"0",:y=>"0.8", :xunits=>"fraction", :yunits=>"fraction")
+      xml.screenXY(:x=>"0",:y=>"0.8", :xunits=>"fraction", :yunits=>"fraction")
+    }
+    xml.ScreenOverlay{
+      xml.name("distribution")
+      xml.Icon{
+        xml.href("#{@baseurl}/api/leqdist.png?box=#{@box}&size=260x140&tags=#{@tags.join(",")}")
+      }
+      xml.overlayXY(:x=>"0",:y=>"0.5", :xunits=>"fraction", :yunits=>"fraction")
+      xml.screenXY(:x=>"0",:y=>"0.5", :xunits=>"fraction", :yunits=>"fraction")
+    }
+  }
+}
+%><%= xml.target! %>

@@ -1,0 +1,25 @@
+<%
+  xml = Builder::XmlMarkup.new(:indent=>2)
+  xml.instruct!(:xml, :encoding => "UTF-8")
+  xml.kml(:xmlns => "http://earth.google.com/kml/2.2"){
+    xml.Document{
+
+        @xml_original,@xml_labeled,@xml_corrected,@xml_segment=generate_subfolders(@frames,@taged_frames,@segments,@time_offset)
+
+        xml.Folder{
+          xml<<@xml_original.target!
+          }
+          
+        xml.Folder{
+          xml<<@xml_labeled.target!
+        }
+
+        xml.Folder{
+          xml<<@xml_corrected.target!
+        }
+          
+        xml.Folder{
+          xml<<@xml_segment.target!
+        }
+    }
+  }%><%= xml.target! %>

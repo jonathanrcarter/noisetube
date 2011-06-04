@@ -1,0 +1,11 @@
+IMPORTANT
+
+For the open source release a number of files have been changed for security reasons.
+If you would want to set up your own NoiseTube (clone) server you will need to re-enter the relevant information in the following files:
+
+- config/database.yml: db names, usernames, passwords
+- config/environment.rb: mail config & Recaptcha config
+- config/initializers/site_keys.rb: REST_AUTH_SITE_KEY
+- config/initializers/session_store.rb: secret
+- config/initializers/geokit_config.rb: Google Maps key
+- lib/classifiers/weather_interpreter.rb : WeatherMan partner_id & license_key

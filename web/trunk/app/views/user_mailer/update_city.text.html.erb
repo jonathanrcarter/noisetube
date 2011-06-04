@@ -1,0 +1,14 @@
+<html>
+<body>
+Dear habitant of <%= @city.name.capitalize %>,
+
+<p>The participant <a href='<%= @ref_user_url%>'><%= @ref_user_name %></a> has updated the map of your city.</p>
+<ul>
+  <li>Viewing <a href='<%= @track_url%>'>The recorded track</a></li>
+  <li>Viewing <a href='<%= @city_url%>'>the new city map</a></li>
+</ul>
+<br/>--
+<br/>The NoiseTube Team
+<br/><img src="http://www.noisetube.net/images/noisetubelogo.png"/>
+</body>
+</html>

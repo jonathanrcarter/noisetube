@@ -1,0 +1,12 @@
+<%
+xml = Builder::XmlMarkup.new(:indent=>2)
+xml.instruct!
+xml.rss(:version => "2.0", "xmlns:georss" => GEORSS_NS) do
+  xml.channel do
+    xml.title "Digital traces of noise pollution in the city #{@city.name}"
+    xml.link(city_url(@city))
+    xml.description "Digital traces of noise pollution in the city #{@city.name}"
+    to_georss(xml,@tracks)
+  end
+end
+%><%= xml.target! %>

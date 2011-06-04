@@ -1,0 +1,11 @@
+<html>
+<body>
+Dear <%= @user.login %>,
+<br/>Thanks for having contributed to the NoiseTube project.
+<p>You can see your track using Google Earth <a href="<%= @track_url %>">by clicking here</a>.</p>
+<p><a href="http://www.noisetube.net/users/<%= @user.id %>">Your Exposure Log (Elog)</a> has been updated</p>
+
+<br/>The NoiseTube Team
+<br/><img src="http://www.noisetube.net/images/noisetubelogo.png" alt="NoiseTube logo"/>
+</body>
+</html>

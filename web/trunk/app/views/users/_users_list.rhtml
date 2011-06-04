@@ -1,0 +1,38 @@
+
+<% if @users.size == 0 %>
+
+<p>No users found...</p>
+<% else %>
+
+<h3><%= @users.size %> Users</h3>
+
+<table>
+  <thead>
+    <tr>
+      <td><b>Profile</b></td>
+      <td width="170"><b>Last exposure stream</b></td>
+      <td width="100"><b>Top 10 Annoyance</b></td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |i| %>
+    <tr class="<%= cycle("even","odd") %>">
+      
+      <td><a href="/users/<%=i.id %>"><img src="/users/<%=  i.id %>.jpg" width=50/></a><b><br/><%= i.login %></b>
+        <font style="font-size:11px"><br/><font style="color:#777777;">City:</font> <%= i.location %> 
+      <br/><font style="color:#777777;">Last trace:</font> <%=distance_of_time_in_words(i.updated_at, Time.now) %> ago
+      <br/><font style="color:#777777;"> measures: </font><%= @summary[:measures_size] %>
+      <br/><font style="color:#777777;"> taggings: </font><%= @summary[:tags_assignement_size] %>
+      </font></td>
+      <td><%=  image_tag "/users/#{i.id}/tracks/last.png?size=200x80" %></td>
+      <td><% unless @tags[i.id].empty? 
+              tag_cloud @tags[i.id], %w(tag1 tag2 tag3 tag4) do |tag, css_class|  %>
+                <a class="<%=css_class %>"  href=""><%= tag.name %></a>
+    <% end 
+  end %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% end %>
