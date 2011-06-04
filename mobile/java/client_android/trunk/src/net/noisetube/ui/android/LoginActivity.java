@@ -96,6 +96,15 @@ public class LoginActivity extends Activity
 		registerText.setText(Html.fromHtml("<br>Don't have an account yet? Register <a href=\"http://www.noisetube.net/signup\">here</a>"));
 		registerText.setMovementMethod(LinkMovementMethod.getInstance());
 	}
+	
+	private void skip()
+	{
+		preferences.setSavingMode(NTClient.getInstance().getDevice().supportsFileAccess() ? Preferences.SAVE_FILE : Preferences.SAVE_NO);
+		preferences.saveToStorage();
+		Toaster.displayToast("Preferences changed. Data will " + (preferences.getSavingMode() == Preferences.SAVE_FILE ? "be locally stored" : "not be stored"));
+		MainActivity.getInstance().startMeasuring();
+		finish();
+	}
 
 	/**
 	 * There are two ways to implement a button: an OnClickListener or binding the method call in the XML.
@@ -145,12 +154,14 @@ public class LoginActivity extends Activity
 	{
 		public void onClick(View v)
 		{
-			preferences.setSavingMode(NTClient.getInstance().getDevice().supportsFileAccess() ? Preferences.SAVE_FILE : Preferences.SAVE_NO);
-			preferences.saveToStorage();
-			Toaster.displayToast("Preferences changed. Data will " + (preferences.getSavingMode() == Preferences.SAVE_FILE ? "be locally stored" : "not be stored"));
-			MainActivity.getInstance().startMeasuring();
-			finish();
+			skip();
 		}
 	};
 	
+	@Override
+	public void onBackPressed()
+	{
+		skip();
+	}
+
 }
