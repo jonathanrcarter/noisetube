@@ -328,7 +328,7 @@ public class Calibration
 		Enumeration en = correctionPairs.elements();
 		while(en.hasMoreElements())
 			bff.appendTabbedLine(((CorrectionPair) en.nextElement()).toXML(), tabs+1);
-		bff.appendTabbedLine("</calibration>", tabs);
+		bff.appendTabbed("</calibration>", tabs);
 		return bff.toString();
 	}
 
