@@ -1,6 +1,8 @@
 Changelog for NoiseTube Mobile for Android (Market release)
 -----------------------------------------------------------
 
+v1.2.4: Introduced explicit timeout (15s) for server pings to avoid hanging app when NoiseTube server is under heavy load; initial calibration for HTC Desire HD.
+
 v1.2.3: Minor tweaks in device brand/model identification.
 
 v1.2.2: Bugfix: When back button was pressed on the login screen the application UI was left in an inconsistent state (fixed: back button = skip login)

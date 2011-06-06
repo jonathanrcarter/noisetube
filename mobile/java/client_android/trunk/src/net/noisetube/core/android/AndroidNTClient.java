@@ -84,7 +84,7 @@ public class AndroidNTClient extends NTClient
 	
 	//Client info
 	static public String CLIENT_TYPE = "NoiseTubeMobileAndroid";
-	static public String CLIENT_VERSION = "v1.2.2";
+	static public String CLIENT_VERSION = "v1.2.4";
 	static public String CLIENT_BUILD_DATE = BuildInfo.timeStamp;
 	static public boolean CLIENT_IS_TEST_VERSION = false; //TODO change to false for web release
 	static
