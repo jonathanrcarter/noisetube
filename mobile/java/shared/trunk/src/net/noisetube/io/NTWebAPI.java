@@ -54,6 +54,7 @@ import net.noisetube.util.URLUTF8Encoder;
 public class NTWebAPI
 {
 
+	private static int PING_TIMEOUT_SECONDS = 15;
 	private static final boolean DEFAULT_ASYNC = true;
 	
 	private static final String AGENT = NTClient.getInstance().getClientType() + "/" + NTClient.getInstance().getClientVersion(); //"NoiseTubeClient/1.x.y";
@@ -84,16 +85,26 @@ public class NTWebAPI
 		this.account = account;
 	}
 	
-	public boolean ping()
+	public synchronized boolean ping()
 	{
 		try
 		{
-			String response = httpClient.getRequest(apiBaseURL + "ping");
-			return(response != null && response.equalsIgnoreCase("ok"));
+			Pinger pinger = new Pinger();
+			Thread pingThread = new Thread(pinger);
+			pingThread.start(); //async
+			this.wait(PING_TIMEOUT_SECONDS * 1000);
+			try
+			{
+				pingThread.interrupt();
+			}
+			catch(Exception ignore) {}
+			if(pinger.response == null)
+				log.debug("Ping failed or timed out");
+			return(pinger.response != null && pinger.response.equalsIgnoreCase("ok"));
 		}
 		catch(Exception e)
 		{
-			log.debug("Ping failed");
+			log.error(e, "Upon pinging (async)"); //should never happen (exceptions are caught in Pinger) but kept the try/catch just to be sure
 			return false; //ping failed
 		}
 	}
@@ -266,6 +277,33 @@ public class NTWebAPI
 			log.error(e, "Could not download calibrations XML file from server");
 			return null;
 		}
+	}
+	
+	/**
+	 * @author mstevens
+	 */
+	private class Pinger implements Runnable
+	{
+		
+		String response = null;
+
+		public void run()
+		{
+			try
+			{
+				response = httpClient.getRequest(apiBaseURL + "ping");
+			}
+			catch(Exception ignore) {}
+			finally
+			{
+				synchronized(NTWebAPI.this)
+				{
+					NTWebAPI.this.notify(); //!!!
+				}
+				
+			}
+		}
+		
 	}
 	
 	/**
