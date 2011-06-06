@@ -1,0 +1,17 @@
+Changelog for NoiseTube Mobile for Android (Market release)
+-----------------------------------------------------------
+
+v1.2.3: Minor tweaks in device brand/model identification.
+
+v1.2.2: Bugfix: When back button was pressed on the login screen the application UI was left in an inconsistent state (fixed: back button = skip login)
+
+v1.2.1: Cosmetic GUI improvements; Fixed crash bug on Android v2.1.
+
+v1.2.0: First Market release.
+
+
+Known unresolved issues:
+------------------------
+
+ - App may stop working after a while on the Samsung Nexus S (will be fixed, but we cannot promise a timeframe)
+ - minor loss of measurement data (usually < 5%) is possible when saving to NoiseTube.net through an unstable 3G/GPRS connection (however, as a backup, all measurements are also locally saved to an XML file).

@@ -101,7 +101,6 @@ public class MainActivity extends TabActivity implements IMeasurementUI
 
 	//DYNAMICS------------------------------------------------------
 	private Logger log;
-	private NTClient ntClient;
 	private AndroidPreferences preferences;
 	private Engine engine = null;
 	
@@ -158,10 +157,8 @@ public class MainActivity extends TabActivity implements IMeasurementUI
 		}
 	}
 	
-	private void initializeActivity()
+	private void initializeActivity(AndroidNTClient ntClient)
 	{
-		//NTClient...
-		ntClient = AndroidNTClient.getInstance();
 		preferences = (AndroidPreferences) ntClient.getPreferences();
 		engine = ntClient.getEngine();
 		engine.setUI(this); //!!!
@@ -540,7 +537,6 @@ public class MainActivity extends TabActivity implements IMeasurementUI
 				//Make sure the client is properly disposed of (static variables are set to null etc).
 				NTClient.dispose();
 				//Also make sure the appropriate static variables etc, stored in the tabs, are cleaned up
-				ntClient = null;
 				instance = null;
 			}
 			catch(Exception ignore) {}
@@ -671,7 +667,7 @@ public class MainActivity extends TabActivity implements IMeasurementUI
 				showErrorDialog((error != null ? error : new Exception("Could not create NTClient object")));
 			}
 			else
-				initializeActivity(); //will remove splash screen
+				initializeActivity(ntClient); //will remove splash screen
 		}
 		
 	}

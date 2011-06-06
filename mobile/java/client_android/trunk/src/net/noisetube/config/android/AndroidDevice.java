@@ -56,35 +56,35 @@ public class AndroidDevice extends Device
 	// relativeDataFolderPath is the relative path where data should be stored
 	// It uses the dataFolderPath as a starting point
 	private static String relativeDataFolderPath = "/data/";
+	
+	private String androidDeviceInfo;
 
 	@Override
 	protected void identifyDevice()
 	{
-		//DEBUG
-		log.debug("Android device info: " + Build.BRAND + "|" + Build.MANUFACTURER + "|" + Build.MODEL + "|" + Build.PRODUCT + "|" + Build.DEVICE + "|" + "|" + Build.DISPLAY + "|" + Build.VERSION.CODENAME + "|" + Build.VERSION.INCREMENTAL + "|" + Build.VERSION.SDK_INT);
+		androidDeviceInfo = Build.BRAND + "|" + Build.MANUFACTURER + "|" + Build.MODEL + "|" + Build.PRODUCT + "|" + Build.DEVICE + "|" + Build.DISPLAY + "|" + Build.VERSION.CODENAME + "|" + Build.VERSION.INCREMENTAL + "|" + Build.VERSION.SDK_INT;
 		/*Examples:
 		 * - HTC Desire Z: htc_wwe|HTC|HTC Vision|htc_vision|vision||FRG83D|REL|317545|8
-		 * - Sony Ericsson Xperia X10: SEMC|Sony Ericsson|X10i|X10i_1235-7836|X10i||2.1.A.0.435|REL|TP7d|7 
+		 * - Sony Ericsson Xperia X10: SEMC|Sony Ericsson|X10i|X10i_1235-7836|X10i||2.1.A.0.435|REL|TP7d|7
 		 */
 		
-		//HTC
-		brand = Build.BRAND;
-		//HTC Hero
+		brand = Build.MANUFACTURER; //used to be BRAND in versions prior to v1.2.3 (the server has a hack that delivers a calibration.xml file with BRAND instead of MANUFACTURER to these versions)
 		model = Build.MODEL;
-		//1.0
 		modelVersion = "unknown";
-		//?
 		firmwareVersion = "unknown";
-		//Android
 		platform = "Android";
-		//2.1
 		platformVersion = Integer.toString(Build.VERSION.SDK_INT);	
-		//Dalvik
 		javaPlatform = "Dalvik";
-		//?
 		javaPlatformVersion = "unknown";
 	}
-
+	
+	@Override
+	public void logIdentification()
+	{
+		super.logIdentification();
+		log.debug("Android device info: " + androidDeviceInfo);
+	}
+	
 	@Override
 	public boolean supportsFileAccess()
 	{
@@ -194,6 +194,14 @@ public class AndroidDevice extends Device
 	{
 		//TODO do actual system check
 		return true;
+	}
+
+	/**
+	 * @return the androidDeviceInfo
+	 */
+	public String getAndroidDeviceInfo()
+	{
+		return androidDeviceInfo;
 	}
 
 }
