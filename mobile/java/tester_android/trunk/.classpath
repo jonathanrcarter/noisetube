@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="shared-src"/>
+	<classpathentry excluding="net/noisetube/audio/android/KJFFT.java|net/noisetube/core/android/MainActivity.java|net/noisetube/ui/android/*Activity*|net/noisetube/ui/android/NoiselevelOverlay.java|net/noisetube/ui/android/tabs/|net/noisetube/ui/android/views/|net/noisetube/ui/android/NoiseLevelOverlay.java|net/noisetube/ui/android/TrackSummaryDialog.java|net/noisetube/location/android/" kind="src" path="client-src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="lib" path="client-src/net/noisetube/ui/android/Toaster.java"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
