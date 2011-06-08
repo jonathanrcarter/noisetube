@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#NoiseTube intro
 
 NoiseTube is a research project started in 2008 at the Sony Computer Science Laboratory in Paris in collaboration with Vrije Universiteit Brussel.
 
