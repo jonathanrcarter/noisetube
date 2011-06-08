@@ -49,9 +49,13 @@ class Measure < ActiveRecord::Base
 
   # ######################## DAO FUNCTIONS ######################
 
-  def self.search2(params, includes=nil)
-    cond, joins=Measure.search_options(params)
-    return Measure.find(:all, :include=>includes, :joins=>joins, :conditions=>cond)
+  def self.search(params, includes=nil)
+    cond, joins = Measure.search_options(params)
+    if cond.nil?
+    	raise SearchException.new("Result too large, please add parameters to limit search space")
+    else
+	return Measure.find(:all, :include=>includes, :joins=>joins, :conditions=>cond, :limit=>500, :order => "made_at DESC")
+    end
   end
 
   def valid?
@@ -59,7 +63,7 @@ class Measure < ActiveRecord::Base
   end
   
   # generic search query preparation
-  def self.search_options(params)
+  def self.search_options(params)  
     cond=[]
     joins=[]
 
@@ -68,6 +72,7 @@ class Measure < ActiveRecord::Base
     cond<<"loudness >#{params[:dbmin]}" unless params[:dbmin].blank?
 
     # TAG
+    # TODO: does not seem to work, FIX THIS
     unless params[:tags].blank?
       joins<<"INNER JOIN taggings ON taggings.taggable_id = measures.id"
       joins<<"INNER JOIN tags ON tags.id = taggings.tag_id"
@@ -82,24 +87,18 @@ class Measure < ActiveRecord::Base
       cond<< "measures.id IN (SELECT taggings.taggable_id FROM taggings LEFT OUTER JOIN tags ON tags.id = taggings.tag_id WHERE #{cond1.join(" OR ")} GROUP BY taggings.taggable_id HAVING COUNT(taggings.taggable_id)=#{cond1.size})"
     end
 
-    # Bounding box #
-    unless params[:box].blank?
-      box=params[:box].split(",")
-      if (box.size==4)
-        # condition
-        box_left=box[0]
-        box_bottom=box[1]
-        box_right=box[2]
-        box_top=box[3]
-        #   cond<<"measures.lat<#{box_top} and measures.lat>#{box_bottom} and measures.lng<#{box_right} and measures.lng>#{box_left}"
-        cond<<"measures.geom && SetSRID('BOX3D(#{box_left} #{box_bottom}, #{box_right} #{box_top})'::box3d,4326) "
-      else
-        raise SearchException.new("parameter box #{params[:box]} not valid")
+    # Geoprahical bounding box #
+    unless params[:geo].blank?
+      cond<< Measure.geoboxCond(params[:geo])
+    else
+      unless params[:box].blank?
+        cond<< Measure.geoboxCond(params[:box])
       end
-    end
-
+    end	
+	
     # CITY
-    city=City.find(params[:city]) unless params[:city].blank?
+    #TODO city by name
+    city=City.find(params[:city]) unless params[:city].blank? 	# by ID
     unless city.nil?
       cond<<"tracks.city_id=#{city.id}"
       joins<<"LEFT OUTER JOIN tracks ON tracks.id = measures.track_id"
@@ -113,12 +112,31 @@ class Measure < ActiveRecord::Base
     end
 
     # USER
-    user=User.find(params[:user]) unless params[:user].blank?
-    unless user.nil?
-      cond<<"measures.user_id=#{user.id}"
+    unless params[:user].blank?
+         u = nil
+    	 begin
+    	   u = User.find(params[:user])				# by ID
+    	 rescue Exception
+	   #ignore
+    	 end
+    	 begin
+    	   u = User.find_by_login(params[:user]) if u.nil?	# by login
+    	 rescue Exception
+	   #ignore
+    	 end
+    	 cond<<"measures.user_id=#{u.id}" unless u.nil?
     end
+    
+    # TIME
+    #TODO since
+    #TODO until
+    
+    # MAX NUMBER
+    #TODO max
+
 
     [cond.size>0? cond.join(" and ") : nil, joins.join(" ")]
+    
   end
 
 
@@ -188,6 +206,25 @@ class Measure < ActiveRecord::Base
       when 22..23 then
         return 0
     end
+  end  
+  
+  
+  private
+  
+  # Geoprahical bounding box #
+  def self.geoboxCond(paramvalue)
+      box=paramvalue.split(",")
+      if (box.size==4)
+        # condition
+        box_left=box[0]
+        box_bottom=box[1]
+        box_right=box[2]
+        box_top=box[3]
+        #return "measures.lat<#{box_top} and measures.lat>#{box_bottom} and measures.lng<#{box_right} and measures.lng>#{box_left}"
+        return "measures.geom && SetSRID('BOX3D(#{box_left} #{box_bottom}, #{box_right} #{box_top})'::box3d,4326) "
+      else
+        raise SearchException.new("parameter geo/box #{paramvalue} not valid")
+      end    
   end
 
 end

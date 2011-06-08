@@ -28,21 +28,21 @@
           </tr>
           <tr>
             <td>key</td>
-            <td>the API key belonging to a  user</td>
+            <td>the API key of the submitting user</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>x</td>
           </tr>
           <tr>
             <td>db</td>
-            <td>measured  loudness  in dB(A)</td>
+            <td>measured loudness in dB(A)</td>
             <td>an integer in [30 to 110]</td>
             <td>&nbsp;</td>
             <td>x</td>
           </tr>
           <tr>
             <td>time</td>
-            <td> local time of the measure.</td>
+            <td>local time of the measurement.</td>
             <td>W3C datetime format: <br />
               YYYY-MM-DDThh:mm:ss Z ±hh:mm</td>
             <td>&nbsp;</td>
@@ -57,7 +57,7 @@
           </tr>
           <tr>
             <td>tag</td>
-            <td>tag associated to the measure </td>
+            <td>tags associated to the measurements (comma separated)</td>
             <td>free text</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -75,10 +75,10 @@
   <hr/>
   <h2>Access to the data commons API<span class="Style2"><br />
   </span></h2>
-  <p>We describe here the web functions to track or get the raw collected data</p>
-  <h3>Function: API/Search
+  <p>Here we describe the API functions to track or get raw collected data</p>
+  <h3>Function: api/search
   </h3>
-  <p><strong>Description:  </strong>search the last measures having such criteria </p>
+  <p><strong>Description: </strong>Returns the last measurements (max. 500) that match the specified criteria:</p>
   <table width="832" border="0" cellpadding="4" cellspacing="4">
     <tr>
       <td width="84" bgcolor="#D9ECE4"><strong>Parameters</strong></td>
@@ -89,99 +89,100 @@
     </tr>
     <tr>
       <td>key</td>
-      <td>the API key belonging to a  user</td>
+      <td>API key belonging to the user making the request</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
       <td>x</td>
     </tr>
     <tr>
       <td>user</td>
-      <td> user associated with the measure</td>
+      <td>ID or username of the user associated with the measurements</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
     </tr>
     <tr>
       <td>tag</td>
-      <td>tag associated with  the measure</td>
-      <td> integer (max=100)</td>
+      <td>tags associated with the measurements</td>
+      <td>string (comma separated tags)</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
     </tr>
     <tr>
       <td valign="top">city</td>
-      <td>ID of the city</td>
+      <td>ID of the city where measurements were made</td>
       <td> integer </td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
     </tr>
     <tr>
       <td valign="top">geo</td>
-      <td> a bounding box </td>
+      <td>Geographical bounding box in which measurements were made</td>
       <td><p>left,bottom,right,top
           (e.g. geo=11.54,48.142,11.5439,48.1454) </p>
         <ul>
-          <li> left is the longitude of the left  side of the bounding box. </li>
-          <li> <em>bottom</em> is the latitude of the bottomside of the bounding box. </li>
-          <li> <em>right</em> is the longitude of the right  side of the bounding box. </li>
-          <li> <em>top</em> is the latitude of the top  side of the bounding box. </li>
+          <li><em>left</em> is the longitude of the left side of the bounding box.</li>
+          <li><em>bottom</em> is the latitude of the bottom side of the bounding box.</li>
+          <li><em>right</em> is the longitude of the right side of the bounding box.</li>
+          <li><em>top</em> is the latitude of the top side of the bounding box.</li>
         </ul></td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
     </tr>
     <tr>
       <td valign="top">dbmax</td>
-      <td> maximum value of  decibel</td>
+      <td> maximum decibel value</td>
       <td>integer</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
     </tr>
     <tr>
       <td valign="top">dbmin</td>
-      <td> minimum value of  decibel</td>
+      <td> minimum decibel value</td>
       <td>integer</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
     </tr>
     <tr>
-      <td >since</td>
-      <td>measures since this date</td>
+      <td >since (Not yet implemented)</td>
+      <td>measurements since this date</td>
       <td>timestamp in milliseconds</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
     </tr>
     <tr>
-      <td >until</td>
-      <td>measures until this date</td>
+      <td >until (Not yet implemented)</td>
+      <td>measurements until this date</td>
       <td>timestamp in milliseconds</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
     </tr>
     <tr>
-      <td >max</td>
-      <td>the maximum number of measures returned</td>
+      <td >max (Not yet implemented)</td>
+      <td>the maximum number of measurements returned</td>
       <td>integer , max=100</td>
       <td>20</td>
       <td>&nbsp;</td>
     </tr>
     <tr>
-      <td >format(todo)</td>
+      <td >format (Not yet implemented)</td>
       <td>the output format</td>
       <td>json,rss</td>
       <td>json</td>
       <td>&nbsp;</td>
     </tr>
   </table>
+  <p/>
   <h4>Examples:
   </h4>
   <ul>
-    <li> The last 100th measures in a city<br />
-      http://www.noisetube.net/api/search.json?key={apikey}&amp;city={cityID}&amp;max=100 </li>
-    <li>All the measures tagged with &quot;neighbour&quot; in the city ID<br />
+    <li>The last 100th measurements in a city<br />
+      http://www.noisetube.net/api/search.json?key={apikey}&amp;city={cityID}&amp;max=100</li>
+    <li>All the measurements tagged with &quot;neighbour&quot; in the city ID<br />
       http://www.noisetube.net/api/search.json?key={apikey}&amp;tag=neighbour&amp;city={cityID} </li>
-    <li>All the measures &gt;80 dB(a) in a given geographical area<br />
+    <li>All the measurements &gt;80 dB(a) in a given geographical area<br />
       http://www.noisetube.net/api/search.json?key={apikey}&amp;geo=11.54,48.142,11.5439,48.1454&amp;dbmin=80 // </li>
-    <li>All the measures &gt;80 dB(a) in a given geographical area since a given date <br />
+    <li>All the measurements &gt;80 dB(a) in a given geographical area since a given date <br />
       http://www.noisetube.net/api/search.json?key={apikey}&amp;geo=11.54,48.142,11.5439,48.1454&amp;dbmin=80&amp;since=121212332 //</li>
   </ul>
   <h4>JSON Return:<br/>

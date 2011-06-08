@@ -1,6 +1,7 @@
 IMPORTANT
+---------
 
-For the open source release a number of files have been changed for security reasons.
+For the open source release of the NoiseTube Web application a number of files have been changed for security reasons.
 If you would want to set up your own NoiseTube (clone) server you will need to re-enter the relevant information in the following files:
 
 - config/database.yml: db names, usernames, passwords

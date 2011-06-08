@@ -36,14 +36,14 @@ end
 
 class ApiController < ApplicationController
 
-  before_filter :verify_apikey, :only => [:newsession, :update, :upload, :postlog, :endsession, :resumesession, :endallsessions]
+  before_filter :verify_apikey, :only => [:newsession, :update, :upload, :postlog, :endsession, :resumesession, :endallsessions, :search]
 
   def index
     redirect_to '/api_overview'
   end
   
   def mobilecalibrations
-    send_file "#{RAILS_ROOT}/public/calibrations.xml", :type=>"application/xml" 
+    send_file "#{RAILS_ROOT}/public/calibrations.xml", :type=>"application/xml"
   end
 
   # Mobile Authentication
@@ -141,7 +141,7 @@ class ApiController < ApplicationController
   # search measures
   def search
     begin
-      measures=Measure.search2(params, [:user]).collect { |measure|
+      measures = Measure.search(params, [:user]).collect { |measure|
         {:lat=>measure.lat,
          :lng=>measure.lng,
          :made_at=>measure.made_at,

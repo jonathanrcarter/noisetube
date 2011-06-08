@@ -3,12 +3,6 @@
 # and open the template in the editor.
 %>
 
-<script language="Javascript">
-  function toggle(){
-      $('jsr').toggle();
-  }
-</script>
-
 <div class="clearfix">
 	<div class="col nleft">
 		<div class="page_content">
@@ -17,13 +11,13 @@
 
                     <h2>Android version</h2>
                     <p><b>News (2011-06-01):</b> We are proud to announce the general availability of the Android version of NoiseTube Mobile.<br/>
-                    The application is distributed through the Android Market. Search for "noisetube" in the Market app on your Android phone or go <a href="https://market.android.com/details?id=net.noisetube">here</a>.<br/>
+                    Distribution of the application (and all updates) happens through the Android Market. Search for "noisetube" in the Market app on your Android phone or go <a href="https://market.android.com/details?id=net.noisetube">here</a>.<br/>
                     </p>
 
                     <h3>Important note</h3>
                     <ul>
                       <li>
-                        The set of Android phone for which we have calibration settings is currently limited. New settings will become available (and will be automatically downloaded) in the coming weeks.
+                        The set of Android phones for which we have calibration settings is currently limited. New settings will become available (and will be automatically downloaded) in the coming weeks.
                       </li>
                     </ul>
 
@@ -34,7 +28,7 @@
                     <h2>Java ME version</h2>
                     <p>
                       This version is for phones with the Java ME CLDC v1.1/MIDP v2.0 platform. Your phone needs to support the JSR-179 Location API and the JSR-135 Mobile Media API. This version has been tested on Nokia S60/Symbian based devices, notably the Nokia 5230, as well as a few Sony Ericsson phones.<br/>
-                      <b>News (2011-06-01):</b> We are proud to announce the release of v2.1.0 for Java ME, including many stability and usability improvements.
+                      <b>News (2011-06-08):</b> We are proud to announce the release of v2.1.1 for Java ME.
                     </p>
                     <div class="listwithtitle">
                     <h3>Download &amp; installation</h3>
@@ -57,12 +51,13 @@
 
                     <h3>Version history</h3>
                     <ul>
-                       <li><b>NEW</b> Current version: v2.1.0 (2011-06-01): Many stability improvements, fix for problem on Sony Ericsson W995, improved GUI on smaller screens, etc.</li>
+                       <li><b>NEW</b> Current version: v2.1.1 (2011-06-08): Explicit timeout for pinging of NoiseTube.net to avoid hanging when server does not respond due to heavy load.</li>
+                       <li>Changes in v2.1.0 (2011-06-01): Many stability improvements, fix for problem on Sony Ericsson W995, improved GUI on smaller screens, etc.</li>
                        <li>Changes in v2.0.0 (2011-04-08): downloadable calibration settings, pause feature, improved user interface, stability improvements (incl. work-around for common Nokia crash bug), etc.</li>
                        <li>Changes in v1.8.1 (2010-11-29): bug fixes</li>
                        <li>Changes in v1.7.0: certificate fixed, calibrated for Nokia 5230, bugfixes</li>
                        <li>Changes in v.1.6.9: calibrated for more models</li>
-                       <li>Changes in v.1.6.8: file wring bug fixed</li>
+                       <li>Changes in v.1.6.8: file writing bug fixed</li>
                        <li>Changes in v1.5.x and earlier: lot's of fixes and improvements made in preparation of NoiseTube demostration during Sony CSL Open House 2009 (e.g. better support for Sony Ericsson).</li>
                     </ul>
                     </div>
@@ -81,7 +76,12 @@
                   <div class="listwithtitle">
                   <b>Current compatible (= calibrated) phone models:</b>
                   <ul>
-                    <li>Android: models to be added soon</li>
+                    <li>Android
+                      <ul>
+                        <li>HTC Desire HD</li>
+                        <li>More models to be added soon...</li>
+                      </ul>
+                    </li>
                     <li>Java ME
                       <ul>
                         <li>Nokia: N96, N95 8GB, N85, E65, 5800, 5230</li>

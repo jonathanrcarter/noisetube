@@ -30,8 +30,6 @@
 
 # Settings specified here will take precedence over those in config/environment.rb
 
-config.logger.level = Logger::WARN
-
 # The production environment is meant for finished, "live" apps.
 # Code is not reloaded between requests
 config.cache_classes = true
@@ -44,16 +42,7 @@ config.action_view.cache_template_loading            = true
 config.action_controller.page_cache_directory= File.join(RAILS_ROOT, 'public', 'cache')
 
 # See everything in the log (default is :info)
- config.log_level = :warn
-
-# See everything in the log (default is :info)
- #config.log_level = :info
-
-# Use a different logger for distributed setups
-# config.logger = SyslogLogger.new
-
-# Use a different cache store in production
- #config.cache_store = :mem_cache_store
+config.log_level = :warn
 
 # Use a different logger for distributed setups
 # config.logger = SyslogLogger.new

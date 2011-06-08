@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<calibrations lastChanged="2010-12-14">
+<calibrations lastChanged="2011-06-06">
 	<!-- credibilityIndex values:
 			- A: same as B but specific to a single physical instance of a device model
 			- B: internal (=SonyCSL/VUB) professional in ideal conditions (verified)
@@ -11,6 +11,8 @@
 			- G: brand match, model mismatch
 			- H: brand and model mismatch (default used)
 	-->
+	
+	<!-- Nokia -->
 	<calibration deviceBrandID="2" deviceBrand="Nokia" deviceModel="5230" credibilityIndex="B" overallDefault="true" brandDefault="true">
 		<creator>BrusSense-VUB</creator>
 		<comment>
@@ -144,6 +146,21 @@
 		<correction input="78.67940008672038" output="80.0"/>
 		<correction input="79.17940008672038" output="85.0"/>
 	</calibration>
+	
 	<!-- HTC -->
-	<!-- ... -->
+	<calibration deviceBrand="HTC" deviceModel="Desire HD" credibilityIndex="B"><!-- brandDefault="true" -->
+		<creator>BrusSense-VUB</creator>
+		<comment>
+			Calibration done by Ellie D'Hondt in April 2011 in an anechoic chamber at the VUB. Last values not entered as a flat line was observed at +/-77dB for all reference values higher than 70.
+		</comment>	
+		<correction input="48.45" output="30.0"/>
+		<correction input="52.76" output="35.0"/>
+		<correction input="57.45" output="39.9"/>
+		<correction input="62.35" output="45.0"/>
+		<correction input="67.27" output="50.0"/>
+		<correction input="72.52" output="55.2"/>
+		<correction input="75.96" output="60.5"/>
+		<correction input="77.04" output="64.8"/>
+	</calibration>
+	
 </calibrations>

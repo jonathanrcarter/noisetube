@@ -36,6 +36,7 @@ RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
+
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers -- all
@@ -48,9 +49,6 @@ Rails::Initializer.run do |config|
   # rake gems:install config.gem "bj" config.gem "hpricot", :version => '0.6',
   # :source => "http://code.whytheluckystiff.net" config.gem "sqlite3-ruby",
   # :lib => "sqlite3" config.gem "aws-s3", :lib => "aws/s3"
-
-  config.logger = Logger.new(File.dirname(__FILE__) + "/../log/#{RAILS_ENV}.log")
-  config.logger.formatter = Logger::Formatter.new
 
   # json 
   config.gem "json"
@@ -153,12 +151,12 @@ ENV['RECAPTCHA_PRIVATE_KEY'] = 'CHANGE_THIS'
 # mail config
 ActionMailer::Base.smtp_settings = {
     :enable_starttls_auto => true,
-    :address => 'CHANGE_THIS',
-    :port => 587, #CHANGE_THIS
-    :domain => 'CHANGE_THIS',
+    :address => 'smtp.gmail.com',
+    :port => 587,
+    :domain => 'noisetube.net',
     :authentication => :plain,
-    :user_name => 'CHANGE_THIS',
-    :password => 'CHANGE_THIS'
+    :user_name => 'noisetubemail@gmail.com',
+    :password => 'noisetubesony'
   }
 ActionMailer::Base.default_content_type = "text/html"
 
@@ -169,3 +167,5 @@ if RAILS_ENV=="production"
     require 'geoip'
     G = GeoIP.new("#{RAILS_ROOT}/public/GeoLiteCity.dat")
  end
+ 
+ 
