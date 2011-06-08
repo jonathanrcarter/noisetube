@@ -83,7 +83,7 @@ public class JavaMENTClient extends NTClient
 	
 	//Client info
 	static public String CLIENT_TYPE = "NoiseTubeMobileJavaME";
-	static public String CLIENT_VERSION = "v2.1.0"; //no need to change this version string here in the code, current value will be loaded from JAR/JAD in checkClient()
+	static public String CLIENT_VERSION = "v2.1.1"; //no need to change this version string here in the code, current value will be loaded from JAR/JAD in checkClient()
 	static public boolean CLIENT_IS_TEST_VERSION = false; //TODO change for web release
 
 	private static String setVersion(MainMIDlet midlet)

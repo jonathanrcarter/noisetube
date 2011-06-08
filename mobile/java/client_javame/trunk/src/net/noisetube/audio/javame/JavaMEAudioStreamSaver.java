@@ -38,7 +38,6 @@ import javax.microedition.io.Connector;
 import javax.microedition.io.file.FileConnection;
 
 import net.noisetube.audio.AudioStreamSaver;
-import net.noisetube.util.Logger;
 
 /**
  * @author mstevens
@@ -46,8 +45,6 @@ import net.noisetube.util.Logger;
  */
 public class JavaMEAudioStreamSaver extends AudioStreamSaver
 {
-	
-	private static Logger log = Logger.getInstance();
 	
 	private String folderPath;
 	
